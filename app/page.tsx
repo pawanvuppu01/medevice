@@ -1,65 +1,161 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { motion } from "framer-motion";
+import Image from "next/image";
+import Link from "next/link";
+
+export default function HomePage() {
+  const services = [
+    {
+      title: "Consulting",
+      desc: "Regulatory and design-control expertise to transform compliance challenges into innovation advantages.",
+      img: "https://images.unsplash.com/photo-1581091012184-7c4c1cde53a8?auto=format&fit=crop&w=2400&q=90",
+      link: "/consulting",
+    },
+    {
+      title: "Staffing & Recruiting",
+      desc: "Connecting MedTech leaders with top-tier engineering and regulatory talent worldwide.",
+      img: "https://images.unsplash.com/photo-1606207554724-8344e1b86dff?auto=format&fit=crop&w=2400&q=90",
+      link: "/staffing",
+    },
+    {
+      title: "Training Programs",
+      desc: "Empowering teams with regulatory, risk management, and AI-driven design knowledge.",
+      img: "https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=2400&q=90",
+      link: "/training",
+    },
+  ];
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
+    <main className="bg-gray-50 text-gray-900">
+      {/* ✅ Hero Section */}
+      <section className="relative h-[85vh] flex items-center justify-center text-center overflow-hidden">
         <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
+          src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=2400&q=90"
+          alt="MedTech Innovation Background"
+          fill
+          className="object-cover brightness-75"
           priority
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-transparent" />
+
+        <div className="relative z-10 px-6 max-w-4xl text-white">
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-6xl font-extrabold mb-4"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            Innovation for Life
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 1 }}
+            className="text-lg md:text-xl text-gray-200 max-w-2xl mx-auto"
           >
-            Documentation
-          </a>
+            MeDevice bridges technology and healthcare — accelerating compliance, innovation, and patient safety through world-class consulting, staffing, and training.
+          </motion.p>
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="mt-8"
+          >
+            <Link
+              href="/consulting"
+              className="bg-red-700 hover:bg-red-800 text-white font-semibold px-8 py-4 rounded-full shadow-lg transition-all hover:scale-105"
+            >
+              Explore Our Services
+            </Link>
+          </motion.div>
         </div>
-      </main>
-    </div>
+      </section>
+
+      {/* ✅ About Section */}
+      <section className="py-20 text-center bg-white">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-red-900 mb-6"
+        >
+          Who We Are
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-3xl mx-auto text-lg text-gray-700"
+        >
+          At <strong>MeDevice</strong>, we empower medical device innovators to design, validate, and deploy
+          technologies that improve lives. Our multidisciplinary experts combine regulatory precision, technical
+          insight, and AI-driven strategy to deliver results that matter.
+        </motion.p>
+      </section>
+
+      {/* ✅ Services Section */}
+      <section className="py-24 bg-gray-100 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-red-900 mb-12"
+        >
+          Our Core Services
+        </motion.h2>
+        <div className="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto px-6">
+          {services.map((s, index) => (
+            <motion.div
+              key={s.title}
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.2 }}
+              whileHover={{
+                scale: 1.05,
+                boxShadow: "0 0 30px rgba(200,0,0,0.15)",
+              }}
+              className="cursor-pointer bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all"
+            >
+              <Image
+                src={s.img}
+                alt={s.title}
+                width={600}
+                height={400}
+                className="w-full h-48 object-cover"
+              />
+              <div className="p-6">
+                <h3 className="text-2xl font-semibold text-red-800 mb-3">{s.title}</h3>
+                <p className="text-gray-700 mb-4">{s.desc}</p>
+                <Link
+                  href={s.link}
+                  className="text-red-700 font-semibold underline hover:text-red-800 transition"
+                >
+                  Learn More →
+                </Link>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ✅ CTA Section */}
+      <section className="py-20 bg-gradient-to-r from-red-700 to-pink-600 text-white text-center">
+        <h2 className="text-4xl font-bold mb-4">Ready to Partner with MeDevice?</h2>
+        <p className="max-w-2xl mx-auto text-gray-100 mb-8">
+          Let’s shape the future of healthcare together — from consulting and staffing to innovation and compliance.
+        </p>
+        <a
+          href="/contact"
+          className="inline-block bg-white text-red-700 font-semibold px-8 py-4 rounded-full shadow-lg hover:scale-105 transition"
+        >
+          Get in Touch
+        </a>
+      </section>
+    </main>
   );
 }
