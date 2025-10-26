@@ -1,34 +1,36 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { FaHeartbeat, FaMedal, FaUsers, FaRocket } from "react-icons/fa";
 
+/** ✅ Type-safe animation variant */
+const fadeUp = (delay = 0): Variants => ({
+  hidden: { opacity: 0, y: 60 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { delay, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+  },
+});
+
+/** ✅ Header generator with animation */
+const sectionHeader = (title: string, subtitle?: string) => (
+  <motion.div
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+    viewport={{ once: true }}
+    className="text-center mb-12"
+  >
+    <h2 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-500 to-pink-500 drop-shadow-sm">
+      {title}
+    </h2>
+    {subtitle && <p className="text-gray-600 mt-2 text-lg">{subtitle}</p>}
+  </motion.div>
+);
+
 export default function AboutPage() {
-  const fadeUp = {
-    hidden: { opacity: 0, y: 80 },
-    show: (delay = 0) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay, duration: 0.8, ease: "easeOut" },
-    }),
-  };
-
-  const sectionHeader = (title: string, subtitle?: string) => (
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      viewport={{ once: true }}
-      className="text-center mb-12"
-    >
-      <h2 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-500 to-pink-500 drop-shadow-sm">
-        {title}
-      </h2>
-      {subtitle && <p className="text-gray-600 mt-2 text-lg">{subtitle}</p>}
-    </motion.div>
-  );
-
   return (
     <main className="bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-800 overflow-hidden">
       {/* 🎬 HERO SECTION */}
@@ -49,7 +51,7 @@ export default function AboutPage() {
         <motion.div
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
+          transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
           className="relative z-10 px-6 max-w-4xl"
         >
           <h1 className="text-6xl md:text-7xl font-extrabold text-white mb-6 tracking-tight drop-shadow-2xl">
@@ -92,8 +94,7 @@ export default function AboutPage() {
           ].map((item, i) => (
             <motion.div
               key={item.title}
-              custom={i * 0.2}
-              variants={fadeUp}
+              variants={fadeUp(i * 0.2)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
@@ -117,7 +118,7 @@ export default function AboutPage() {
         <div className="relative max-w-6xl mx-auto px-6 text-center">
           {sectionHeader("What Makes Us Different")}
           <motion.ul
-            variants={fadeUp}
+            variants={fadeUp(0.2)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: true }}
@@ -165,12 +166,11 @@ export default function AboutPage() {
           ].map((leader, i) => (
             <motion.div
               key={leader.name}
-              custom={i * 0.3}
-              variants={fadeUp}
+              variants={fadeUp(i * 0.3)}
               initial="hidden"
               whileInView="show"
               viewport={{ once: true }}
-              whileHover={{ scale: 1.05, rotateY: 3 }}
+              whileHover={{ scale: 1.05 }}
               className="relative group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
             >
               <div className="relative h-72">
@@ -192,7 +192,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 🚀 CALL TO ACTION */}
+      {/* 🚀 CTA */}
       <motion.section
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}

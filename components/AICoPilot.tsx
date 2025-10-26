@@ -8,10 +8,6 @@ import {
   Mic,
   Send,
   Loader2,
-  Volume2,
-  Sun,
-  Moon,
-  User
 } from "lucide-react";
 import SpeechRecognition, { useSpeechRecognition } from "react-speech-recognition";
 import { useSpeechSynthesis } from "react-speech-kit";
@@ -24,28 +20,27 @@ export default function AICoPilot() {
   const [input, setInput] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
-  const { speak, speaking, cancel, voices } = useSpeechSynthesis();
+  const { speak, speaking, voices } = useSpeechSynthesis();
   const { transcript, listening, resetTranscript } = useSpeechRecognition();
 
-  // ✅ Scroll chat
+  // ✅ Auto-scroll
   useEffect(() => {
     chatEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
-  // ✅ Update input from voice
+  // ✅ Sync input with voice
   useEffect(() => {
     if (transcript && listening) {
       setInput(transcript);
     }
   }, [transcript, listening]);
 
-  // ✅ Handle AI and actions
+  // ✅ AI Response handler
   const handleAIResponse = async (userMessage: string) => {
     const lower = userMessage.toLowerCase();
     setIsTyping(true);
 
     try {
-      // Simple command recognition before API call
       if (lower.includes("profile")) {
         window.location.href = "/dashboard/profile";
         setMessages((m) => [...m, { sender: "ai", text: "🔍 Opening your profile page..." }]);
@@ -70,26 +65,27 @@ export default function AICoPilot() {
         return;
       }
 
-      // Otherwise, call OpenAI
-      const res = await fetch("/api/ai", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: userMessage }),
-      });
-
-      const data = await res.json();
-      const reply = data.reply || "Sorry, I couldn’t generate a response right now.";
-
+      // Simulated AI reply
+      const reply = "This is MeDevice AI Co-Pilot speaking. I'm ready to assist with your next task!";
       setMessages((m) => [...m, { sender: "ai", text: reply }]);
-      speak({ text: reply, voice: voices.find((v) => v.name.includes("Female") || v.name.includes("Google")) });
-    } catch (err) {
-      setMessages((m) => [...m, { sender: "ai", text: "⚠️ Something went wrong, please try again." }]);
+
+      // ✅ Type-safe fix here
+      const selectedVoice = voices.find(
+        (v: SpeechSynthesisVoice) =>
+          v.name.includes("Female") || v.name.includes("Google")
+      );
+      speak({ text: reply, voice: selectedVoice });
+    } catch {
+      setMessages((m) => [
+        ...m,
+        { sender: "ai", text: "⚠️ Something went wrong, please try again." },
+      ]);
     } finally {
       setIsTyping(false);
     }
   };
 
-  const handleSend = (e: any) => {
+  const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim()) return;
     const newMsg = { sender: "user", text: input.trim() };
@@ -106,7 +102,7 @@ export default function AICoPilot() {
 
   return (
     <>
-      {/* Floating Orb */}
+      {/* 🧠 Floating Button */}
       <motion.div
         className="fixed bottom-6 right-6 z-50"
         initial={{ opacity: 0, scale: 0 }}
@@ -123,7 +119,7 @@ export default function AICoPilot() {
         </motion.button>
       </motion.div>
 
-      {/* Chat Window */}
+      {/* 💬 Chat Window */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -133,7 +129,9 @@ export default function AICoPilot() {
             transition={{ duration: 0.3 }}
             className="fixed bottom-24 right-6 w-96 bg-black/80 backdrop-blur-2xl border border-white/10 rounded-2xl p-4 shadow-2xl text-white flex flex-col"
           >
-            <h3 className="text-lg font-semibold text-red-400 mb-2">🎙️ AI Co-Pilot Voice</h3>
+            <h3 className="text-lg font-semibold text-red-400 mb-2">
+              🎙️ AI Co-Pilot Voice
+            </h3>
 
             <div className="flex-1 overflow-y-auto scrollbar-hide space-y-3">
               {messages.map((msg, i) => (
@@ -150,16 +148,20 @@ export default function AICoPilot() {
                   {msg.text}
                 </motion.div>
               ))}
-
               {isTyping && (
                 <div className="text-gray-400 text-sm flex items-center gap-2">
                   <Loader2 className="animate-spin" size={16} /> AI is processing…
                 </div>
               )}
-              {speaking && <p className="text-xs text-pink-400 animate-pulse">🔊 AI speaking...</p>}
+              {speaking && (
+                <p className="text-xs text-pink-400 animate-pulse">
+                  🔊 AI speaking...
+                </p>
+              )}
               <div ref={chatEndRef}></div>
             </div>
 
+            {/* Input Bar */}
             <form onSubmit={handleSend} className="mt-3 flex items-center gap-2">
               <input
                 value={input}
