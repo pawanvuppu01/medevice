@@ -1,5 +1,5 @@
 {
-"type": "module",
+  "type": "module",
   "name": "medevice",
   "version": "0.1.0",
   "private": true,
@@ -13,15 +13,15 @@
   "dependencies": {
     "@react-three/drei": "^10.7.6",
     "@react-three/fiber": "^9.4.0",
-    "@tailwindcss/postcss": "^4.1.16",
-    "autoprefixer": "latest",
+    "@supabase/auth-helpers-nextjs": "^0.10.0",
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.78.0",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "framer-motion": "latest",
     "lucide-react": "latest",
     "next": "latest",
     "openai": "^6.7.0",
-    "postcss": "latest",
     "react": "latest",
     "react-dom": "latest",
     "react-dropzone": "^14.3.8",
@@ -29,13 +29,16 @@
     "react-speech-kit": "latest",
     "react-speech-recognition": "latest",
     "recharts": "^3.3.0",
-    "tailwindcss": "latest",
+    "resend": "^6.4.0",
     "three": "latest"
   },
   "devDependencies": {
     "@types/node": "24.9.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "autoprefixer": "latest",
+    "postcss": "latest",
+    "tailwindcss": "3.4.13",
     "typescript": "latest"
   }
 }

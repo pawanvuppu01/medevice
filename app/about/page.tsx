@@ -1,229 +1,198 @@
 "use client";
 
+import { motion } from "framer-motion";
 import Image from "next/image";
-import { motion, Variants } from "framer-motion";
-import { FaHeartbeat, FaMedal, FaUsers, FaRocket } from "react-icons/fa";
-
-/** ✅ Type-safe animation variant */
-const fadeUp = (delay = 0): Variants => ({
-  hidden: { opacity: 0, y: 60 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { delay, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
-  },
-});
-
-/** ✅ Header generator with animation */
-const sectionHeader = (title: string, subtitle?: string) => (
-  <motion.div
-    initial={{ opacity: 0, y: 40 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-    viewport={{ once: true }}
-    className="text-center mb-12"
-  >
-    <h2 className="text-4xl md:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-red-700 via-red-500 to-pink-500 drop-shadow-sm">
-      {title}
-    </h2>
-    {subtitle && <p className="text-gray-600 mt-2 text-lg">{subtitle}</p>}
-  </motion.div>
-);
+import Link from "next/link";
 
 export default function AboutPage() {
   return (
-    <main className="bg-gradient-to-b from-white via-gray-50 to-gray-100 text-gray-800 overflow-hidden">
-      {/* 🎬 HERO SECTION */}
-      <section className="relative h-[90vh] flex flex-col items-center justify-center text-center">
+    <main className="bg-gradient-to-b from-black via-gray-950 to-black text-gray-100 min-h-screen">
+      {/* ================= HERO ================= */}
+      <section className="relative h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1581092334534-7b8f57f11603?auto=format&fit=crop&w=2400&q=90"
-          alt="About Background"
+          src="/images/about-banner.jpg"
+          alt="About MeDevice"
           fill
           priority
-          className="object-cover brightness-[0.6]"
+          className="object-cover brightness-[0.45]"
         />
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1 }}
-          className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/70"
-        />
-        <motion.div
-          initial={{ scale: 0.9, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-          className="relative z-10 px-6 max-w-4xl"
-        >
-          <h1 className="text-6xl md:text-7xl font-extrabold text-white mb-6 tracking-tight drop-shadow-2xl">
-            Shaping the Future of Medical Innovation
-          </h1>
-          <p className="text-gray-200 text-lg md:text-xl leading-relaxed">
-            At MeDevice, we unite technology and humanity — transforming
-            innovative ideas into devices that improve and save lives worldwide.
-          </p>
-          <motion.a
-            href="/services"
-            whileHover={{ scale: 1.05 }}
-            className="inline-block mt-10 bg-gradient-to-r from-red-700 via-red-600 to-pink-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-2xl transition-all"
+        <div className="relative z-10 px-6 max-w-5xl">
+          <motion.h1
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent leading-tight"
           >
-            Explore Our Solutions
-          </motion.a>
-        </motion.div>
+            Shaping the Future of MedTech Innovation
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-lg md:text-xl text-gray-300 mt-6 max-w-3xl mx-auto"
+          >
+            MeDevice is redefining how medical device companies innovate, validate, and launch — blending regulatory science with artificial intelligence and human expertise.
+          </motion.p>
+        </div>
       </section>
 
-      {/* 💎 PURPOSE / VISION / MISSION */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
-        {sectionHeader("Purpose, Vision & Mission", "Our Core Principles")}
-        <div className="grid md:grid-cols-3 gap-10 mt-10">
+      {/* ================= OUR MISSION ================= */}
+      <section className="py-24 border-t border-gray-800 bg-black/40 backdrop-blur-md text-center">
+        <h2 className="text-4xl font-bold text-red-400 mb-8">Our Mission & Vision</h2>
+        <div className="max-w-5xl mx-auto text-lg text-gray-300 leading-relaxed space-y-8 px-6">
+          <p>
+            <strong>Mission:</strong> To empower MedTech innovators through intelligent systems, expert collaboration, and AI-driven regulatory insights — accelerating safe and compliant healthcare breakthroughs.
+          </p>
+          <p>
+            <strong>Vision:</strong> A world where innovation and compliance coexist seamlessly — every life-saving device built with speed, transparency, and trust.
+          </p>
+        </div>
+      </section>
+
+      {/* ================= TIMELINE ================= */}
+      <section className="py-24 border-t border-gray-800 bg-gradient-to-b from-gray-950 to-black">
+        <h2 className="text-4xl font-bold text-red-400 text-center mb-14">
+          Our Journey
+        </h2>
+        <div className="max-w-5xl mx-auto px-6 space-y-12">
           {[
             {
-              icon: <FaHeartbeat size={42} className="text-red-700" />,
-              title: "Purpose",
-              text: "To empower healthcare innovation by connecting design, compliance, and engineering excellence with patient outcomes.",
+              year: "2019",
+              title: "Founded with Purpose",
+              desc: "Born from a vision to bridge compliance and creativity in the MedTech landscape.",
             },
             {
-              icon: <FaMedal size={42} className="text-red-700" />,
-              title: "Vision",
-              text: "To be the global standard in medical device consulting, driving safer, smarter, and more ethical innovation.",
+              year: "2021",
+              title: "AI-Integrated Consulting Launched",
+              desc: "Introduced predictive compliance modeling and automated documentation systems.",
             },
             {
-              icon: <FaRocket size={42} className="text-red-700" />,
-              title: "Mission",
-              text: "To help companies accelerate product development, streamline regulatory readiness, and deliver transformative technologies to market.",
+              year: "2023",
+              title: "Global Expansion",
+              desc: "Established offices in the U.S. and India, partnering with 20+ MedTech innovators worldwide.",
             },
-          ].map((item, i) => (
+            {
+              year: "2025",
+              title: "Next-Gen MedDevice Cloud",
+              desc: "Currently building an AI-powered platform to revolutionize device validation, training, and market readiness.",
+            },
+          ].map((milestone, i) => (
             <motion.div
-              key={item.title}
-              variants={fadeUp(i * 0.2)}
-              initial="hidden"
-              whileInView="show"
+              key={i}
+              initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="group bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all border border-gray-200"
+              transition={{ delay: i * 0.2 }}
+              className="relative border-l-4 border-red-500 pl-6 hover:pl-8 transition-all"
             >
-              <div className="flex justify-center mb-4">{item.icon}</div>
-              <h3 className="text-2xl font-bold text-red-900 mb-3 text-center">
-                {item.title}
+              <h3 className="text-2xl font-bold text-red-400">{milestone.year}</h3>
+              <p className="text-xl font-semibold mt-1">{milestone.title}</p>
+              <p className="text-gray-400 mt-2">{milestone.desc}</p>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ================= LEADERSHIP ================= */}
+      <section className="py-24 border-t border-gray-800 bg-black/30 backdrop-blur-md text-center">
+        <h2 className="text-4xl font-bold text-red-400 mb-14">
+          Leadership & Innovation Team
+        </h2>
+        <div className="max-w-6xl mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-10 px-8">
+          {[
+            {
+              name: "Pawan Vuppu",
+              role: "Founder & Chief Innovation Officer",
+              img: "/images/team-pawan.jpg",
+              desc: "Drives the MeDevice ecosystem — fusing MedTech strategy with AI-driven development and global compliance architecture.",
+            },
+            {
+              name: "Ananya Rao",
+              role: "Head of Regulatory Science",
+              img: "/images/team-ananya.jpg",
+              desc: "Leads the development of evidence-based frameworks for AI/ML-enabled medical devices.",
+            },
+            {
+              name: "Raj Mehta",
+              role: "Director of Global Partnerships",
+              img: "/images/team-raj.jpg",
+              desc: "Strengthens alliances across healthcare tech, manufacturing, and R&D organizations worldwide.",
+            },
+          ].map((member, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2 }}
+              className="bg-white/5 border border-gray-700 rounded-3xl p-6 hover:bg-white/10 transition-all"
+            >
+              <Image
+                src={member.img}
+                alt={member.name}
+                width={200}
+                height={200}
+                className="rounded-full mx-auto mb-4 border border-red-400 object-cover"
+              />
+              <h3 className="text-xl font-semibold text-red-400">
+                {member.name}
               </h3>
-              <p className="text-gray-700 text-center leading-relaxed">
-                {item.text}
-              </p>
+              <p className="text-gray-400 text-sm mb-3">{member.role}</p>
+              <p className="text-sm text-gray-300">{member.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* 🔥 DIFFERENTIATORS */}
-      <section className="relative bg-gradient-to-br from-red-900 via-red-800 to-red-600 text-white py-24">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1580281657521-80dbd69f3073?auto=format&fit=crop&w=2400&q=90')] bg-cover bg-center opacity-20" />
-        <div className="relative max-w-6xl mx-auto px-6 text-center">
-          {sectionHeader("What Makes Us Different")}
-          <motion.ul
-            variants={fadeUp(0.2)}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 text-left"
-          >
-            {[
-              "Integrity and transparency in every project.",
-              "Cross-disciplinary experts in design, quality, and regulatory.",
-              "Adaptive strategies for evolving healthcare standards.",
-              "Client partnerships built on trust and accountability.",
-              "Passion for saving and improving lives with technology.",
-              "Global reach, local insight, and personal connection.",
-            ].map((point, i) => (
-              <li
-                key={i}
-                className="p-6 bg-white/10 backdrop-blur-md rounded-xl hover:bg-white/20 transition-all border border-white/20"
-              >
-                <FaUsers className="inline text-pink-400 mr-3" /> {point}
-              </li>
-            ))}
-          </motion.ul>
-        </div>
-      </section>
-
-      {/* 👥 LEADERSHIP */}
-      <section className="py-24 max-w-7xl mx-auto px-6">
-        {sectionHeader("Leadership Team", "The minds driving innovation")}
-        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-10">
+      {/* ================= GLOBAL FOOTPRINT ================= */}
+      <section className="py-24 border-t border-gray-800 bg-gradient-to-r from-gray-900 via-black to-gray-900 text-center">
+        <h2 className="text-4xl font-bold text-red-400 mb-8">Global Footprint</h2>
+        <p className="text-gray-400 max-w-3xl mx-auto mb-10 text-lg">
+          MeDevice operates across North America, Europe, and Asia, delivering
+          precision consulting, staffing, and digital training solutions to
+          MedTech enterprises worldwide.
+        </p>
+        <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto px-8">
           {[
-            {
-              name: "Chuck Ventura",
-              role: "Chief Executive Officer",
-              img: "https://images.unsplash.com/photo-1603415526960-f7e0328d4b8c?auto=format&fit=crop&w=800&q=80",
-            },
-            {
-              name: "Aileen Rohde",
-              role: "Account Manager",
-              img: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=800&q=80",
-            },
-            {
-              name: "Chris Bishof",
-              role: "Director of Engineering",
-              img: "https://images.unsplash.com/photo-1595152772835-219674b2a8a6?auto=format&fit=crop&w=800&q=80",
-            },
-          ].map((leader, i) => (
+            { region: "USA", offices: "San Francisco, Boston" },
+            { region: "Europe", offices: "Berlin, Dublin" },
+            { region: "India", offices: "Hyderabad, Bangalore" },
+            { region: "Japan", offices: "Tokyo" },
+          ].map((loc, i) => (
             <motion.div
-              key={leader.name}
-              variants={fadeUp(i * 0.3)}
-              initial="hidden"
-              whileInView="show"
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.05 }}
-              className="relative group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+              key={i}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.15 }}
+              className="bg-white/5 border border-gray-700 rounded-2xl p-6 hover:bg-white/10 transition-all"
             >
-              <div className="relative h-72">
-                <Image
-                  src={leader.img}
-                  alt={leader.name}
-                  fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-6 text-center">
-                <h3 className="text-xl font-bold text-red-900 mb-2">
-                  {leader.name}
-                </h3>
-                <p className="text-gray-600">{leader.role}</p>
-              </div>
+              <h3 className="text-xl font-semibold text-red-400">
+                {loc.region}
+              </h3>
+              <p className="text-sm text-gray-300 mt-2">{loc.offices}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* 🚀 CTA */}
-      <motion.section
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="relative overflow-hidden py-28 text-center"
-      >
-        <Image
-          src="https://images.unsplash.com/photo-1581092334534-7b8f57f11603?auto=format&fit=crop&w=2400&q=90"
-          alt="Background"
-          fill
-          className="object-cover opacity-30"
-        />
-        <div className="relative z-10 max-w-3xl mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-extrabold text-red-900 mb-6">
-            Let’s Build the Future of Healthcare
-          </h2>
-          <p className="text-gray-700 mb-10 text-lg">
-            Partner with MeDevice to revolutionize medical innovation — through
-            collaboration, precision, and passion for life.
-          </p>
-          <motion.a
-            href="/contact"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block bg-gradient-to-r from-red-700 via-pink-600 to-red-500 text-white px-10 py-4 rounded-full font-semibold shadow-lg hover:shadow-2xl transition"
-          >
-            Contact Our Experts
-          </motion.a>
-        </div>
-      </motion.section>
+      {/* ================= CTA ================= */}
+      <section className="py-24 text-center bg-gradient-to-r from-red-700 to-pink-600 text-white">
+        <h2 className="text-4xl font-bold mb-4">Join the MeDevice Movement</h2>
+        <p className="max-w-3xl mx-auto text-pink-100 mb-8 text-lg">
+          Together, we can build the next generation of intelligent medical devices —
+          compliant, connected, and human-centered.
+        </p>
+        <Link
+          href="/contact"
+          className="bg-white text-red-700 font-semibold px-10 py-4 rounded-full shadow-xl hover:scale-110 hover:bg-gray-100 transition-all"
+        >
+          Get in Touch
+        </Link>
+      </section>
+
+      <footer className="py-10 text-center text-gray-500 text-sm bg-black border-t border-gray-800">
+        © {new Date().getFullYear()} MeDevice Inc. | Empowering MedTech Through AI
+      </footer>
     </main>
   );
 }

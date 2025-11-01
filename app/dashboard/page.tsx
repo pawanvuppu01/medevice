@@ -1,123 +1,153 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { BarChart3, Users, Briefcase, TrendingUp } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabaseAuth } from "@/lib/authClient";
+import { useRouter } from "next/navigation";
 
-export default function DashboardHome() {
-  const stats = [
-    {
-      icon: <Users size={28} className="text-pink-500" />,
-      title: "Active Clients",
-      value: "42",
-      desc: "Companies partnered this quarter",
-      color: "from-pink-500/30 to-red-500/30",
-    },
-    {
-      icon: <Briefcase size={28} className="text-blue-500" />,
-      title: "Projects",
-      value: "128",
-      desc: "Ongoing MedTech projects",
-      color: "from-blue-500/30 to-indigo-500/30",
-    },
-    {
-      icon: <BarChart3 size={28} className="text-green-400" />,
-      title: "Training Sessions",
-      value: "16",
-      desc: "Completed this month",
-      color: "from-green-400/30 to-emerald-600/30",
-    },
-    {
-      icon: <TrendingUp size={28} className="text-yellow-400" />,
-      title: "Growth",
-      value: "+18%",
-      desc: "Quarterly increase in client reach",
-      color: "from-yellow-400/30 to-orange-500/30",
-    },
-  ];
+interface ContactForm {
+  id: number;
+  name: string;
+  email: string;
+  message: string;
+  created_at: string;
+}
+
+interface ConsultingProject {
+  id: number;
+  project_name: string;
+  project_stage: string;
+  progress: number;
+  created_at: string;
+}
+
+export default function DashboardPage() {
+  const [user, setUser] = useState<any>(null);
+  const [contactForms, setContactForms] = useState<ContactForm[]>([]);
+  const [projects, setProjects] = useState<ConsultingProject[]>([]);
+  const router = useRouter();
+
+  // Get the current logged in user
+  useEffect(() => {
+    const getUser = async () => {
+      const { data } = await supabaseAuth.auth.getUser();
+      if (!data.user) {
+        router.push("/");
+      } else {
+        setUser(data.user);
+      }
+    };
+    getUser();
+  }, [router]);
+
+  // Load user-related data
+  useEffect(() => {
+    const loadData = async () => {
+      if (!user) return;
+
+      // 1️⃣ Fetch contact form messages tied to this email
+      const { data: contactData } = await supabaseAuth
+        .from("contact_form")
+        .select("*")
+        .eq("email", user.email);
+
+      // 2️⃣ Fetch consulting projects (if any)
+      const { data: projectData } = await supabaseAuth
+        .from("consulting_projects")
+        .select("*")
+        .limit(5);
+
+      setContactForms(contactData || []);
+      setProjects(projectData || []);
+    };
+    loadData();
+  }, [user]);
+
+  const handleLogout = async () => {
+    await supabaseAuth.auth.signOut();
+    router.push("/");
+  };
+
+  if (!user)
+    return (
+      <div className="min-h-screen flex items-center justify-center text-gray-500">
+        Loading your dashboard...
+      </div>
+    );
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-gray-950 via-red-950/40 to-black text-white">
-      {/* Animated background gradient shimmer */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 0.2 }}
-        transition={{ duration: 3 }}
-        className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,0,100,0.2),transparent_60%)] blur-3xl"
-      />
-
-      <motion.h1
-        initial={{ opacity: 0, y: -30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="text-5xl font-bold mb-12 text-center pt-10 drop-shadow-xl"
-      >
-        MeDevice Dashboard
-      </motion.h1>
-
-      {/* Stats Grid */}
-      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 px-8">
-        {stats.map((item, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.15, duration: 0.6 }}
-            whileHover={{
-              scale: 1.06,
-              boxShadow: "0 0 25px rgba(255,255,255,0.2)",
-            }}
-            className={`rounded-2xl p-6 backdrop-blur-xl bg-gradient-to-br ${item.color} border border-white/10 shadow-lg hover:shadow-red-500/20 transition-all duration-500 relative overflow-hidden group`}
+    <main className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 text-gray-200 px-6 py-24">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex justify-between items-center mb-12">
+          <h1 className="text-4xl font-extrabold text-red-500">Dashboard</h1>
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 px-6 py-2 rounded-md text-white font-semibold"
           >
-            {/* Glow pulse */}
-            <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-40 transition duration-500"></div>
+            Logout
+          </button>
+        </div>
 
-            <div className="flex flex-col items-center text-center space-y-2">
-              <motion.div
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 1 }}
-                className="mb-2"
-              >
-                {item.icon}
-              </motion.div>
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p className="text-4xl font-extrabold tracking-tight animate-glow">
-                {item.value}
-              </p>
-              <p className="text-sm text-gray-300">{item.desc}</p>
+        {/* 👤 User Info */}
+        <div className="bg-white/10 backdrop-blur-lg p-8 rounded-2xl mb-12 border border-gray-700 shadow-lg">
+          <h2 className="text-2xl font-bold text-red-400 mb-3">Welcome, {user.email}</h2>
+          <p>User ID: <span className="text-gray-400">{user.id}</span></p>
+        </div>
+
+        {/* 📬 Contact Form Submissions */}
+        <section className="mb-16">
+          <h3 className="text-2xl font-bold text-red-400 mb-6">Your Contact Messages</h3>
+          {contactForms.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-6">
+              {contactForms.map((msg) => (
+                <div
+                  key={msg.id}
+                  className="bg-white/5 border border-gray-700 rounded-lg p-6 shadow-md"
+                >
+                  <p className="text-lg font-semibold text-white mb-1">{msg.name}</p>
+                  <p className="text-gray-400 text-sm mb-2">{msg.email}</p>
+                  <p className="text-gray-300 mb-2">{msg.message}</p>
+                  <p className="text-xs text-gray-500">
+                    Sent: {new Date(msg.created_at).toLocaleString()}
+                  </p>
+                </div>
+              ))}
             </div>
-          </motion.div>
-        ))}
-      </div>
+          ) : (
+            <p className="text-gray-400">No contact form submissions yet.</p>
+          )}
+        </section>
 
-      {/* Recent Activity Section */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.9 }}
-        className="max-w-6xl mx-auto mt-20 mb-16 bg-white/10 backdrop-blur-xl rounded-2xl p-8 border border-white/20 shadow-2xl"
-      >
-        <h2 className="text-2xl font-semibold text-red-400 mb-4">
-          Latest Activity
-        </h2>
-        <ul className="divide-y divide-white/10 text-gray-200">
-          <li className="py-3 flex justify-between items-center hover:text-white transition">
-            <span>✅ Regulatory Audit Completed for MedPlus Inc.</span>
-            <span className="text-sm text-gray-400">2 days ago</span>
-          </li>
-          <li className="py-3 flex justify-between items-center hover:text-white transition">
-            <span>🚀 New project launched — “AI Compliance Tracker”</span>
-            <span className="text-sm text-gray-400">4 days ago</span>
-          </li>
-          <li className="py-3 flex justify-between items-center hover:text-white transition">
-            <span>📊 Training report shared with FDA team</span>
-            <span className="text-sm text-gray-400">1 week ago</span>
-          </li>
-          <li className="py-3 flex justify-between items-center hover:text-white transition">
-            <span>👥 New consultants onboarded</span>
-            <span className="text-sm text-gray-400">2 weeks ago</span>
-          </li>
-        </ul>
-      </motion.div>
-    </div>
+        {/* 📊 Projects Section */}
+        <section>
+          <h3 className="text-2xl font-bold text-red-400 mb-6">Consulting Projects</h3>
+          {projects.length > 0 ? (
+            <div className="grid md:grid-cols-2 gap-6">
+              {projects.map((proj) => (
+                <div
+                  key={proj.id}
+                  className="bg-white/5 border border-gray-700 rounded-lg p-6 shadow-md"
+                >
+                  <h4 className="text-xl font-semibold text-white mb-2">
+                    {proj.project_name}
+                  </h4>
+                  <p className="text-gray-400 mb-1">
+                    Stage: <span className="text-white">{proj.project_stage}</span>
+                  </p>
+                  <p className="text-gray-400 mb-1">
+                    Progress:{" "}
+                    <span className="text-white">{proj.progress}%</span>
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    Created: {new Date(proj.created_at).toLocaleDateString()}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p className="text-gray-400">No consulting projects found.</p>
+          )}
+        </section>
+      </div>
+    </main>
   );
 }
