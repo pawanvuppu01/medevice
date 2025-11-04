@@ -9,7 +9,7 @@ export default function TrainingPage() {
     {
       title: "AI-Driven Regulatory Intelligence",
       desc: "Learn how to apply machine learning and natural-language models to automate regulatory tracking, risk classification, and compliance audits across FDA, MDR, and ISO standards.",
-      img: "/images/training-ai.jpg",
+      img: "/images/training/training-ai.jpg",
       duration: "4 Weeks",
       level: "Intermediate",
       link: "/contact",
@@ -17,7 +17,7 @@ export default function TrainingPage() {
     {
       title: "Quality Systems & Risk Management",
       desc: "A deep dive into ISO 13485, CAPA systems, root-cause analysis, and risk-based design verification. Gain practical experience building compliant QMS workflows.",
-      img: "/images/training-quality.jpg",
+      img: "/images/training/training-quality.jpg",
       duration: "6 Weeks",
       level: "Advanced",
       link: "/contact",
@@ -25,7 +25,7 @@ export default function TrainingPage() {
     {
       title: "Design Control & Human Factors Engineering",
       desc: "Understand the full design-control lifecycle—from user needs and design inputs to validation testing and usability studies—tailored for MedTech innovators.",
-      img: "/images/training-design.jpg",
+      img: "/images/training/training-design.jpg",
       duration: "5 Weeks",
       level: "Beginner to Advanced",
       link: "/contact",
@@ -33,7 +33,7 @@ export default function TrainingPage() {
     {
       title: "Data Integrity & Validation Automation",
       desc: "Master modern tools for CSV, IQ/OQ/PQ validation, and data-integrity automation using AI and cloud-native workflows. Includes real-world case studies.",
-      img: "/images/training-validation.jpg",
+      img: "/images/training/training-validation.jpg",
       duration: "3 Weeks",
       level: "Intermediate",
       link: "/contact",
@@ -41,7 +41,7 @@ export default function TrainingPage() {
     {
       title: "Leadership in RegTech and Compliance Innovation",
       desc: "For senior professionals: build leadership capability in digital compliance transformation, regulatory AI governance, and change-management strategy.",
-      img: "/images/training-leadership.jpg",
+      img: "/images/training/training-leadership.jpg",
       duration: "8 Weeks",
       level: "Executive",
       link: "/contact",
@@ -53,11 +53,11 @@ export default function TrainingPage() {
       {/* HERO */}
       <section className="relative h-[70vh] flex flex-col justify-center items-center text-center overflow-hidden">
         <Image
-          src="/images/training-banner.jpg"
+          src="/images/training/training-banner.jpg"
           alt="MeDevice Training Programs"
           fill
           priority
-          className="object-cover brightness-[0.4]"
+          className="object-cover brightness-[0.35]"
         />
         <div className="relative z-10 px-6 max-w-4xl">
           <motion.h1
@@ -94,7 +94,7 @@ export default function TrainingPage() {
               transition={{ delay: index * 0.1 }}
               whileHover={{
                 scale: 1.05,
-                boxShadow: "0 0 50px rgba(255,0,0,0.25)",
+                boxShadow: "0 0 40px rgba(255,0,80,0.25)",
               }}
               className="bg-white/5 border border-gray-700/50 rounded-3xl overflow-hidden text-left hover:border-red-500/40 transition-all"
             >
@@ -103,7 +103,7 @@ export default function TrainingPage() {
                 alt={t.title}
                 width={600}
                 height={400}
-                className="h-56 w-full object-cover"
+                className="h-56 w-full object-cover opacity-90 hover:opacity-100 transition duration-500"
               />
               <div className="p-6">
                 <h3 className="text-2xl font-bold text-red-400 mb-3">{t.title}</h3>

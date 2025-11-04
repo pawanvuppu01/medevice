@@ -5,12 +5,63 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutPage() {
+  const milestones = [
+    {
+      year: "2019",
+      title: "Founded with Purpose",
+      desc: "Born from a vision to bridge compliance and creativity in the MedTech landscape.",
+    },
+    {
+      year: "2021",
+      title: "AI-Integrated Consulting Launched",
+      desc: "Introduced predictive compliance modeling and automated documentation systems.",
+    },
+    {
+      year: "2023",
+      title: "Global Expansion",
+      desc: "Established offices in the U.S. and India, partnering with 20+ MedTech innovators worldwide.",
+    },
+    {
+      year: "2025",
+      title: "Next-Gen MedDevice Cloud",
+      desc: "Currently building an AI-powered platform to revolutionize device validation, training, and market readiness.",
+    },
+  ];
+
+  const leadership = [
+    {
+      name: "Pawan Vuppu",
+      role: "Founder & Chief Innovation Officer",
+      img: "/images/team-pawan.jpg",
+      desc: "Drives MeDevice’s ecosystem — fusing MedTech strategy with AI-driven development and compliance architecture.",
+    },
+    {
+      name: "Ananya Rao",
+      role: "Head of Regulatory Science",
+      img: "/images/team-ananya.jpg",
+      desc: "Leads the development of evidence-based frameworks for AI/ML-enabled medical devices.",
+    },
+    {
+      name: "Raj Mehta",
+      role: "Director of Global Partnerships",
+      img: "/images/team-raj.jpg",
+      desc: "Strengthens alliances across healthcare tech, manufacturing, and R&D organizations worldwide.",
+    },
+  ];
+
+  const locations = [
+    { region: "USA", offices: "San Francisco, Boston" },
+    { region: "Europe", offices: "Berlin, Dublin" },
+    { region: "India", offices: "Hyderabad, Bangalore" },
+    { region: "Japan", offices: "Tokyo" },
+  ];
+
   return (
     <main className="bg-gradient-to-b from-black via-gray-950 to-black text-gray-100 min-h-screen">
       {/* ================= HERO ================= */}
       <section className="relative h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
         <Image
-          src="/images/about-banner.jpg"
+          src="/images/heroes/hero-about.jpg"
           alt="About MeDevice"
           fill
           priority
@@ -31,7 +82,9 @@ export default function AboutPage() {
             transition={{ delay: 0.3 }}
             className="text-lg md:text-xl text-gray-300 mt-6 max-w-3xl mx-auto"
           >
-            MeDevice is redefining how medical device companies innovate, validate, and launch — blending regulatory science with artificial intelligence and human expertise.
+            MeDevice is redefining how medical device companies innovate,
+            validate, and launch — blending regulatory science with artificial
+            intelligence and human expertise.
           </motion.p>
         </div>
       </section>
@@ -41,10 +94,14 @@ export default function AboutPage() {
         <h2 className="text-4xl font-bold text-red-400 mb-8">Our Mission & Vision</h2>
         <div className="max-w-5xl mx-auto text-lg text-gray-300 leading-relaxed space-y-8 px-6">
           <p>
-            <strong>Mission:</strong> To empower MedTech innovators through intelligent systems, expert collaboration, and AI-driven regulatory insights — accelerating safe and compliant healthcare breakthroughs.
+            <strong>Mission:</strong> To empower MedTech innovators through intelligent
+            systems, expert collaboration, and AI-driven regulatory insights —
+            accelerating safe and compliant healthcare breakthroughs.
           </p>
           <p>
-            <strong>Vision:</strong> A world where innovation and compliance coexist seamlessly — every life-saving device built with speed, transparency, and trust.
+            <strong>Vision:</strong> A world where innovation and compliance coexist
+            seamlessly — every life-saving device built with speed, transparency,
+            and trust.
           </p>
         </div>
       </section>
@@ -55,28 +112,7 @@ export default function AboutPage() {
           Our Journey
         </h2>
         <div className="max-w-5xl mx-auto px-6 space-y-12">
-          {[
-            {
-              year: "2019",
-              title: "Founded with Purpose",
-              desc: "Born from a vision to bridge compliance and creativity in the MedTech landscape.",
-            },
-            {
-              year: "2021",
-              title: "AI-Integrated Consulting Launched",
-              desc: "Introduced predictive compliance modeling and automated documentation systems.",
-            },
-            {
-              year: "2023",
-              title: "Global Expansion",
-              desc: "Established offices in the U.S. and India, partnering with 20+ MedTech innovators worldwide.",
-            },
-            {
-              year: "2025",
-              title: "Next-Gen MedDevice Cloud",
-              desc: "Currently building an AI-powered platform to revolutionize device validation, training, and market readiness.",
-            },
-          ].map((milestone, i) => (
+          {milestones.map((m, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
@@ -85,9 +121,9 @@ export default function AboutPage() {
               transition={{ delay: i * 0.2 }}
               className="relative border-l-4 border-red-500 pl-6 hover:pl-8 transition-all"
             >
-              <h3 className="text-2xl font-bold text-red-400">{milestone.year}</h3>
-              <p className="text-xl font-semibold mt-1">{milestone.title}</p>
-              <p className="text-gray-400 mt-2">{milestone.desc}</p>
+              <h3 className="text-2xl font-bold text-red-400">{m.year}</h3>
+              <p className="text-xl font-semibold mt-1">{m.title}</p>
+              <p className="text-gray-400 mt-2">{m.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -99,26 +135,7 @@ export default function AboutPage() {
           Leadership & Innovation Team
         </h2>
         <div className="max-w-6xl mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-10 px-8">
-          {[
-            {
-              name: "Pawan Vuppu",
-              role: "Founder & Chief Innovation Officer",
-              img: "/images/team-pawan.jpg",
-              desc: "Drives the MeDevice ecosystem — fusing MedTech strategy with AI-driven development and global compliance architecture.",
-            },
-            {
-              name: "Ananya Rao",
-              role: "Head of Regulatory Science",
-              img: "/images/team-ananya.jpg",
-              desc: "Leads the development of evidence-based frameworks for AI/ML-enabled medical devices.",
-            },
-            {
-              name: "Raj Mehta",
-              role: "Director of Global Partnerships",
-              img: "/images/team-raj.jpg",
-              desc: "Strengthens alliances across healthcare tech, manufacturing, and R&D organizations worldwide.",
-            },
-          ].map((member, i) => (
+          {leadership.map((m, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 40 }}
@@ -128,17 +145,15 @@ export default function AboutPage() {
               className="bg-white/5 border border-gray-700 rounded-3xl p-6 hover:bg-white/10 transition-all"
             >
               <Image
-                src={member.img}
-                alt={member.name}
+                src={m.img}
+                alt={m.name}
                 width={200}
                 height={200}
                 className="rounded-full mx-auto mb-4 border border-red-400 object-cover"
               />
-              <h3 className="text-xl font-semibold text-red-400">
-                {member.name}
-              </h3>
-              <p className="text-gray-400 text-sm mb-3">{member.role}</p>
-              <p className="text-sm text-gray-300">{member.desc}</p>
+              <h3 className="text-xl font-semibold text-red-400">{m.name}</h3>
+              <p className="text-gray-400 text-sm mb-3">{m.role}</p>
+              <p className="text-sm text-gray-300">{m.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -153,12 +168,7 @@ export default function AboutPage() {
           MedTech enterprises worldwide.
         </p>
         <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto px-8">
-          {[
-            { region: "USA", offices: "San Francisco, Boston" },
-            { region: "Europe", offices: "Berlin, Dublin" },
-            { region: "India", offices: "Hyderabad, Bangalore" },
-            { region: "Japan", offices: "Tokyo" },
-          ].map((loc, i) => (
+          {locations.map((loc, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 20 }}
@@ -179,8 +189,8 @@ export default function AboutPage() {
       <section className="py-24 text-center bg-gradient-to-r from-red-700 to-pink-600 text-white">
         <h2 className="text-4xl font-bold mb-4">Join the MeDevice Movement</h2>
         <p className="max-w-3xl mx-auto text-pink-100 mb-8 text-lg">
-          Together, we can build the next generation of intelligent medical devices —
-          compliant, connected, and human-centered.
+          Together, we can build the next generation of intelligent medical
+          devices — compliant, connected, and human-centered.
         </p>
         <Link
           href="/contact"

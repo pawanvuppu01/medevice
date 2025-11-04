@@ -26,40 +26,46 @@ export default function IntegratedSolutionsPage() {
       title: "AI & Predictive Analytics",
       desc: "Use machine learning to optimize device performance, predict failures, and personalize patient care.",
       icon: <FaRobot className="text-pink-500 text-4xl mb-3" />,
+      img: "/images/integrated/ai-analytics.jpg",
     },
     {
       title: "IoT Device Connectivity",
       desc: "Enable real-time monitoring through secure IoT integrations and remote telemetry dashboards.",
       icon: <FaNetworkWired className="text-pink-500 text-4xl mb-3" />,
+      img: "/images/integrated/iot-connectivity.jpg",
     },
     {
       title: "Cloud Infrastructure",
       desc: "Deploy scalable and HIPAA-compliant architectures using Azure, AWS, or GCP for device data management.",
       icon: <FaCloud className="text-pink-500 text-4xl mb-3" />,
+      img: "/images/integrated/cloud-infrastructure.jpg",
     },
     {
       title: "Embedded Systems",
       desc: "Design microcontroller-based devices with low-latency performance and medical-grade reliability.",
       icon: <FaMicrochip className="text-pink-500 text-4xl mb-3" />,
+      img: "/images/integrated/embedded-systems.jpg",
     },
     {
       title: "Cybersecurity & Compliance",
       desc: "Ensure device security and regulatory readiness through end-to-end encryption and FDA cybersecurity frameworks.",
       icon: <FaShieldAlt className="text-pink-500 text-4xl mb-3" />,
+      img: "/images/integrated/cybersecurity.jpg",
     },
     {
       title: "Data Visualization & Insights",
       desc: "Transform device and clinical data into actionable insights using Power BI, Tableau, and custom dashboards.",
       icon: <FaChartLine className="text-pink-500 text-4xl mb-3" />,
+      img: "/images/integrated/data-visualization.jpg",
     },
   ];
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 text-gray-200 overflow-hidden">
-      {/* 🎬 HERO SECTION */}
+      {/* HERO */}
       <section className="relative h-[75vh] flex items-center justify-center text-center overflow-hidden">
         <Image
-          src="https://images.unsplash.com/photo-1555617117-08a69f0d6c52?auto=format&fit=crop&w=2400&q=90"
+          src="/images/integrated/hero-integrated.jpg"
           alt="Integrated Solutions"
           fill
           priority
@@ -81,7 +87,7 @@ export default function IntegratedSolutionsPage() {
         </motion.div>
       </section>
 
-      {/* 💡 SOLUTION PILLARS */}
+      {/* PILLARS */}
       <section className="max-w-7xl mx-auto px-6 py-24">
         <motion.h2
           variants={fadeUp(0.1)}
@@ -102,19 +108,28 @@ export default function IntegratedSolutionsPage() {
               whileInView="show"
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
-              className="group bg-white/5 backdrop-blur-xl border border-pink-600/30 p-8 rounded-2xl shadow-lg hover:shadow-pink-500/40 transition-all text-center"
+              className="group bg-white/5 backdrop-blur-xl border border-pink-600/30 rounded-2xl shadow-lg hover:shadow-pink-500/40 transition-all overflow-hidden"
             >
-              <div className="flex justify-center">{p.icon}</div>
-              <h3 className="text-2xl font-bold text-pink-400 mb-2">{p.title}</h3>
-              <p className="text-gray-300 leading-relaxed">{p.desc}</p>
+              <Image
+                src={p.img}
+                alt={p.title}
+                width={600}
+                height={400}
+                className="w-full h-40 object-cover opacity-80 group-hover:opacity-100 transition"
+              />
+              <div className="p-6 text-center">
+                <div className="flex justify-center">{p.icon}</div>
+                <h3 className="text-2xl font-bold text-pink-400 mb-2">{p.title}</h3>
+                <p className="text-gray-300 leading-relaxed">{p.desc}</p>
+              </div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* 🧭 PROCESS FLOW */}
+      {/* PROCESS */}
       <section className="relative py-24 bg-gradient-to-r from-red-900 via-red-800 to-red-700 text-white">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1581091870627-3fba0f1c16d3?auto=format&fit=crop&w=2400&q=90')] bg-cover bg-center opacity-20" />
+        <div className="absolute inset-0 bg-[url('/images/integrated/process-bg.jpg')] bg-cover bg-center opacity-20" />
         <div className="relative z-10 max-w-6xl mx-auto px-6">
           <motion.h2
             variants={fadeUp(0.1)}
@@ -151,7 +166,7 @@ export default function IntegratedSolutionsPage() {
         </div>
       </section>
 
-      {/* 🚀 CTA SECTION */}
+      {/* CTA */}
       <motion.section
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}

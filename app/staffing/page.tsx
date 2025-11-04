@@ -10,7 +10,7 @@ export default function StaffingPage() {
       {/* ================= HERO ================= */}
       <section className="relative h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
         <Image
-          src="/images/staffing-banner.jpg"
+          src="/images/staffing/staffing-banner.jpg"
           alt="Staffing and Recruiting for MedTech"
           fill
           priority
@@ -77,17 +77,17 @@ export default function StaffingPage() {
             {
               title: "Regulatory Affairs & QA Engineers",
               desc: "Experts in FDA, ISO 13485, MDR, and QMS implementation ensuring global compliance.",
-              img: "/images/qa-team.jpg",
+              img: "/images/staffing/qa-team.jpg",
             },
             {
               title: "AI & Data Science Specialists",
               desc: "Machine learning engineers, bioinformaticians, and AI auditors transforming diagnostics and digital health.",
-              img: "/images/ai-team.jpg",
+              img: "/images/staffing/ai-team.jpg",
             },
             {
               title: "Product Design & Validation Engineers",
               desc: "Hardware and software validation professionals skilled in V&V, risk analysis, and usability engineering.",
-              img: "/images/design-team.jpg",
+              img: "/images/staffing/design-team.jpg",
             },
           ].map((card, i) => (
             <motion.div
@@ -96,6 +96,7 @@ export default function StaffingPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2 }}
+              whileHover={{ scale: 1.05 }}
               className="relative rounded-3xl overflow-hidden border border-gray-700 hover:border-red-500/40 hover:shadow-red-500/30 transition-all group"
             >
               <Image
@@ -103,7 +104,7 @@ export default function StaffingPage() {
                 alt={card.title}
                 width={500}
                 height={300}
-                className="object-cover w-full h-56 opacity-80 group-hover:opacity-100 transition"
+                className="object-cover w-full h-56 opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-500"
               />
               <div className="p-6 bg-black/60 backdrop-blur-lg">
                 <h3 className="text-2xl font-bold text-red-400 mb-3">{card.title}</h3>

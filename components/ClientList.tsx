@@ -1,52 +1,53 @@
 "use client";
-import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
-import { apiSafeFetch } from "@/lib/apiSafeFetch";
 
-interface Client {
-  id: number;
-  name: string;
-  sector?: string;
-  logo?: string;
-}
+import Slider from "react-slick";
+import Image from "next/image";
 
 export default function ClientList() {
-  const [clients, setClients] = useState<Client[]>([]);
-  const [error, setError] = useState<string | null>(null);
+  const clients = [
+    { name: "Medtronic", img: "/images/clients/client-medtronic.png" },
+    { name: "Boston Scientific", img: "/images/clients/client-boston-scientific.png" },
+    { name: "Stryker", img: "/images/clients/client-stryker.png" },
+    { name: "Abbott", img: "/images/clients/client-abbott.png" },
+    { name: "Johnson & Johnson", img: "/images/clients/client-johnson.png" },
+    { name: "Pfizer", img: "/images/clients/client-pfizer.png" },
+    { name: "GE Healthcare", img: "/images/clients/client-gehealthcare.png" },
+    { name: "Philips", img: "/images/clients/client-philips.png" },
+    { name: "Roche", img: "/images/clients/client-roche.png" },
+    { name: "Siemens Healthineers", img: "/images/clients/client-siemens.png" },
+  ];
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await apiSafeFetch<{ success: boolean; data: Client[] }>("/api/clients");
-        if (res && Array.isArray(res.data)) setClients(res.data);
-        else setError("Unexpected response structure");
-      } catch (err: any) {
-        setError(err.message);
-      }
-    })();
-  }, []);
-
-  if (error)
-    return <p className="text-red-500 text-center mt-8">{error}</p>;
-
-  if (!clients.length)
-    return <p className="text-gray-400 text-center mt-8">No clients found.</p>;
+  const settings = {
+    dots: false,
+    infinite: true,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    slidesToShow: 5,
+    slidesToScroll: 1,
+    arrows: false,
+    responsive: [
+      { breakpoint: 1280, settings: { slidesToShow: 4 } },
+      { breakpoint: 1024, settings: { slidesToShow: 3 } },
+      { breakpoint: 768, settings: { slidesToShow: 2 } },
+      { breakpoint: 480, settings: { slidesToShow: 1 } },
+    ],
+  };
 
   return (
-    <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
-      {clients.map((client, i) => (
-        <motion.div
-          key={client.id}
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: i * 0.1 }}
-          className="bg-white/10 p-4 rounded-xl text-center border border-gray-700 hover:scale-105 transition"
-        >
-          <p className="text-lg font-semibold text-white">{client.name}</p>
-          <p className="text-sm text-gray-400">{client.sector || "MedTech Partner"}</p>
-        </motion.div>
-      ))}
+    <div className="max-w-7xl mx-auto px-8">
+      <Slider {...settings}>
+        {clients.map((c) => (
+          <div key={c.name} className="p-8 flex justify-center items-center">
+            <Image
+              src={c.img}
+              alt={c.name}
+              width={220}
+              height={90}
+              className="object-contain opacity-80 hover:opacity-100 transition"
+            />
+          </div>
+        ))}
+      </Slider>
     </div>
   );
 }
