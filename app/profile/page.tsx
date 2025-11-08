@@ -1,52 +1,56 @@
 "use client";
-
 import { useEffect, useState } from "react";
-import { supabaseAuth } from "@/lib/authClient";
-import { useRouter } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
+import Link from "next/link";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
 
 export default function ProfilePage() {
-  const [user, setUser] = useState<any>(null);
-  const router = useRouter();
+  const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
-    const getUser = async () => {
-      const { data } = await supabaseAuth.auth.getUser();
-      if (data.user) setUser(data.user);
-      else router.push("/"); // redirect if not logged in
+    const load = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      setProfile(user.user_metadata);
     };
-    getUser();
-  }, [router]);
+    load();
+  }, []);
 
-  const handleLogout = async () => {
-    await supabaseAuth.auth.signOut();
-    router.push("/");
-  };
+  if (!profile)
+    return <p className="text-center mt-10 text-slate-600">Loading...</p>;
 
-  if (!user)
-    return (
-      <div className="min-h-screen flex items-center justify-center text-gray-500">
-        Loading profile...
-      </div>
-    );
+  const role = profile.role || "client";
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 text-white flex items-center justify-center">
-      <div className="bg-white/10 backdrop-blur-md rounded-2xl shadow-xl p-10 w-full max-w-lg text-center border border-gray-700">
-        <h1 className="text-3xl font-bold text-red-500 mb-4">Your Profile</h1>
+    <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-50 to-white text-center px-6">
+      <div className="bg-white p-10 rounded-3xl shadow-xl max-w-lg w-full space-y-6">
+        <h1 className="text-3xl font-bold text-blue-800">Welcome, {profile.full_name}</h1>
+        <p className="text-slate-600">{profile.email}</p>
+        <p className="text-sm text-gray-500 capitalize">Role: {role}</p>
 
-        <p className="text-lg mb-2">
-          <strong>Email:</strong> {user.email}
-        </p>
-        <p className="text-lg mb-6">
-          <strong>User ID:</strong> {user.id}
-        </p>
-
-        <button
-          onClick={handleLogout}
-          className="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-md font-semibold transition"
-        >
-          Logout
-        </button>
+        {role === "admin" ? (
+          <div className="space-y-4">
+            <Link href="/dashboard/admin" className="block bg-slate-800 text-white py-3 rounded-xl hover:bg-slate-900">
+              Go to Admin Dashboard
+            </Link>
+            <Link href="/auth/login" className="block text-blue-600 hover:text-blue-800">
+              Logout
+            </Link>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            <Link href="/dashboard/client" className="block bg-blue-700 text-white py-3 rounded-xl hover:bg-blue-800">
+              Go to My Dashboard
+            </Link>
+            <Link href="/auth/login" className="block text-blue-600 hover:text-blue-800">
+              Logout
+            </Link>
+          </div>
+        )}
       </div>
     </main>
   );

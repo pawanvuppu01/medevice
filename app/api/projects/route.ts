@@ -1,22 +1,49 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabaseClient";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
 export async function GET() {
-  const { data, error } = await supabase.from("projects").select("*");
-  if (error) return NextResponse.json({ success: false, error: error.message });
-  return NextResponse.json({ success: true, data });
+  try {
+    const { data, error } = await supabase
+      .from("projects")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) throw error;
+    return NextResponse.json(data, { status: 200 });
+  } catch (err: any) {
+    return NextResponse.json(
+      { error: "Failed to fetch projects", details: err.message },
+      { status: 500 }
+    );
+  }
 }
+
 export async function POST(req: Request) {
-  const body = await req.json();
-  const { data, error } = await supabase.from("projects").insert([body]);
-  if (error) return NextResponse.json({ success: false, error: error.message });
-  return NextResponse.json({ success: true, data });
-}
-export async function DELETE(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
-  if (!id)
-    return NextResponse.json({ success: false, error: "Missing id" }, { status: 400 });
-  const { error } = await supabase.from("projects").delete().eq("id", id);
-  if (error) return NextResponse.json({ success: false, error: error.message });
-  return NextResponse.json({ success: true });
+  try {
+    const body = await req.json();
+    if (!body.project_name)
+      return NextResponse.json(
+        { error: "Project name required" },
+        { status: 400 }
+      );
+
+    const { data, error } = await supabase
+      .from("projects")
+      .insert([body])
+      .select()
+      .single();
+
+    if (error) throw error;
+    return NextResponse.json(data, { status: 201 });
+  } catch (err: any) {
+    return NextResponse.json(
+      { error: "Failed to add project", details: err.message },
+      { status: 500 }
+    );
+  }
 }

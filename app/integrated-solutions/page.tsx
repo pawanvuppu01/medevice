@@ -2,194 +2,179 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import {
-  FaNetworkWired,
-  FaCloud,
-  FaMicrochip,
-  FaRobot,
-  FaShieldAlt,
-  FaChartLine,
-} from "react-icons/fa";
-
-const fadeUp = (delay = 0) => ({
-  hidden: { opacity: 0, y: 40 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { delay, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
-  },
-});
+import Link from "next/link";
+import { Cpu, Network, Brain, Cloud, Workflow, ArrowRight } from "lucide-react";
 
 export default function IntegratedSolutionsPage() {
-  const pillars = [
+  const solutions = [
     {
-      title: "AI & Predictive Analytics",
-      desc: "Use machine learning to optimize device performance, predict failures, and personalize patient care.",
-      icon: <FaRobot className="text-pink-500 text-4xl mb-3" />,
-      img: "/images/integrated/ai-analytics.jpg",
+      icon: <Cpu className="w-8 h-8 text-blue-600" />,
+      title: "Digital Transformation in MedTech",
+      desc: "We design and deploy connected digital ecosystems that unify R&D, regulatory, and manufacturing operations. Our platforms enable real-time data visibility, automation, and analytics across your organization.",
     },
     {
-      title: "IoT Device Connectivity",
-      desc: "Enable real-time monitoring through secure IoT integrations and remote telemetry dashboards.",
-      icon: <FaNetworkWired className="text-pink-500 text-4xl mb-3" />,
-      img: "/images/integrated/iot-connectivity.jpg",
+      icon: <Brain className="w-8 h-8 text-blue-600" />,
+      title: "AI-Powered Validation Systems",
+      desc: "Leverage artificial intelligence to accelerate design validation, quality testing, and compliance reporting. Our frameworks integrate predictive algorithms into device lifecycle management workflows.",
     },
     {
-      title: "Cloud Infrastructure",
-      desc: "Deploy scalable and HIPAA-compliant architectures using Azure, AWS, or GCP for device data management.",
-      icon: <FaCloud className="text-pink-500 text-4xl mb-3" />,
-      img: "/images/integrated/cloud-infrastructure.jpg",
+      icon: <Cloud className="w-8 h-8 text-blue-600" />,
+      title: "Cloud-Native Compliance Platforms",
+      desc: "We architect secure, scalable cloud infrastructures built for regulated industries. Our GxP-ready environments simplify documentation, audit trails, and data integrity validation.",
     },
     {
-      title: "Embedded Systems",
-      desc: "Design microcontroller-based devices with low-latency performance and medical-grade reliability.",
-      icon: <FaMicrochip className="text-pink-500 text-4xl mb-3" />,
-      img: "/images/integrated/embedded-systems.jpg",
+      icon: <Network className="w-8 h-8 text-blue-600" />,
+      title: "Interoperability & Data Integration",
+      desc: "Achieve seamless data flow between systems like ERP, MES, QMS, and PLM. Our engineers build integration layers that connect device telemetry, clinical systems, and supply chain intelligence.",
     },
     {
-      title: "Cybersecurity & Compliance",
-      desc: "Ensure device security and regulatory readiness through end-to-end encryption and FDA cybersecurity frameworks.",
-      icon: <FaShieldAlt className="text-pink-500 text-4xl mb-3" />,
-      img: "/images/integrated/cybersecurity.jpg",
-    },
-    {
-      title: "Data Visualization & Insights",
-      desc: "Transform device and clinical data into actionable insights using Power BI, Tableau, and custom dashboards.",
-      icon: <FaChartLine className="text-pink-500 text-4xl mb-3" />,
-      img: "/images/integrated/data-visualization.jpg",
+      icon: <Workflow className="w-8 h-8 text-blue-600" />,
+      title: "Workflow Automation & DevOps",
+      desc: "We implement CI/CD pipelines, Infrastructure-as-Code, and automated testing for medical software. Reduce manual overhead, minimize risk, and achieve rapid, compliant releases.",
     },
   ];
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 text-gray-200 overflow-hidden">
-      {/* HERO */}
-      <section className="relative h-[75vh] flex items-center justify-center text-center overflow-hidden">
+    <main className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-blue-50 text-slate-800">
+      {/* ================= HERO ================= */}
+      <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
         <Image
-          src="/images/integrated/hero-integrated.jpg"
+          src="/images/solutions/integrated-bg.jpg"
           alt="Integrated Solutions"
           fill
           priority
-          className="object-cover brightness-[0.4]"
+          className="object-cover brightness-[0.55]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="relative z-10 max-w-3xl px-6"
-        >
-          <h1 className="text-6xl md:text-7xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-pink-500 to-red-400 mb-6">
-            Integrated Solutions
-          </h1>
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Connecting innovation, intelligence, and compliance — MeDevice integrates end-to-end technology ecosystems that power next-generation healthcare.
-          </p>
-        </motion.div>
+        <div className="relative z-10 max-w-4xl text-center px-6">
+          <motion.h1
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1 }}
+            className="text-5xl md:text-6xl font-extrabold text-white leading-tight drop-shadow-xl"
+          >
+            Integrated Solutions for a Smarter MedTech Future
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="text-lg md:text-xl text-slate-100 mt-6 leading-relaxed"
+          >
+            MeDevice transforms how MedTech enterprises design, build, and
+            manage digital systems — combining AI, cloud, and data intelligence
+            to create connected, compliant, and future-ready organizations.
+          </motion.p>
+        </div>
       </section>
 
-      {/* PILLARS */}
-      <section className="max-w-7xl mx-auto px-6 py-24">
+      {/* ================= SOLUTION OVERVIEW ================= */}
+      <section className="py-24 max-w-6xl mx-auto px-6 text-center">
         <motion.h2
-          variants={fadeUp(0.1)}
-          initial="hidden"
-          whileInView="show"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-4xl font-extrabold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 to-red-600"
+          className="text-4xl font-bold text-blue-800 mb-8"
         >
-          Our Core Technology Pillars
+          Our Core Digital Integration Services
         </motion.h2>
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          viewport={{ once: true }}
+          className="max-w-3xl mx-auto text-slate-600 text-lg mb-14 leading-relaxed"
+        >
+          Our integrated solutions go beyond technology deployment — they create
+          synergy between innovation, compliance, and operational excellence.
+          Whether you’re modernizing legacy systems or launching an intelligent
+          cloud platform, we design ecosystems that scale seamlessly with your
+          vision.
+        </motion.p>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10">
-          {pillars.map((p, i) => (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mt-10">
+          {solutions.map((s, i) => (
             <motion.div
-              key={p.title}
-              variants={fadeUp(i * 0.15)}
-              initial="hidden"
-              whileInView="show"
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.15 }}
               viewport={{ once: true }}
-              whileHover={{ scale: 1.05 }}
-              className="group bg-white/5 backdrop-blur-xl border border-pink-600/30 rounded-2xl shadow-lg hover:shadow-pink-500/40 transition-all overflow-hidden"
+              className="p-8 bg-white rounded-2xl border border-slate-200 shadow-md hover:shadow-xl hover:-translate-y-1 transition-all text-left"
             >
-              <Image
-                src={p.img}
-                alt={p.title}
-                width={600}
-                height={400}
-                className="w-full h-40 object-cover opacity-80 group-hover:opacity-100 transition"
-              />
-              <div className="p-6 text-center">
-                <div className="flex justify-center">{p.icon}</div>
-                <h3 className="text-2xl font-bold text-pink-400 mb-2">{p.title}</h3>
-                <p className="text-gray-300 leading-relaxed">{p.desc}</p>
-              </div>
+              <div className="mb-4">{s.icon}</div>
+              <h3 className="text-xl font-semibold text-blue-700 mb-3">
+                {s.title}
+              </h3>
+              <p className="text-slate-600 text-sm leading-relaxed">{s.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* PROCESS */}
-      <section className="relative py-24 bg-gradient-to-r from-red-900 via-red-800 to-red-700 text-white">
-        <div className="absolute inset-0 bg-[url('/images/integrated/process-bg.jpg')] bg-cover bg-center opacity-20" />
-        <div className="relative z-10 max-w-6xl mx-auto px-6">
-          <motion.h2
-            variants={fadeUp(0.1)}
-            initial="hidden"
-            whileInView="show"
-            viewport={{ once: true }}
-            className="text-4xl font-extrabold text-center mb-16"
+      {/* ================= BENEFITS ================= */}
+      <section className="bg-gradient-to-r from-blue-700 to-blue-900 text-white py-24">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
           >
-            Our Integration Process
-          </motion.h2>
+            <h2 className="text-4xl font-bold mb-6 leading-tight">
+              Empowering MedTech Through Connected Intelligence
+            </h2>
+            <p className="text-blue-100 leading-relaxed mb-6">
+              Every successful MedTech product relies on synchronized systems —
+              from R&D to manufacturing to compliance. MeDevice builds digital
+              bridges that connect every stage of your product lifecycle,
+              ensuring quality, speed, and visibility.
+            </p>
+            <ul className="space-y-3 text-blue-100">
+              <li>✅ Real-time monitoring and predictive analytics</li>
+              <li>✅ Automated document workflows and audit readiness</li>
+              <li>✅ GxP-compliant data exchange and reporting pipelines</li>
+              <li>✅ Cloud migration strategies for regulated environments</li>
+              <li>✅ Cross-functional team enablement through unified data</li>
+            </ul>
+          </motion.div>
 
-          <div className="relative border-l border-white/30 ml-4 pl-8 space-y-12">
-            {[
-              "Requirements & Architecture Design",
-              "API Integration & Cloud Connectivity",
-              "System Validation & Compliance Testing",
-              "Deployment, Monitoring & Optimization",
-            ].map((step, i) => (
-              <motion.div
-                key={step}
-                variants={fadeUp(i * 0.2)}
-                initial="hidden"
-                whileInView="show"
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="absolute -left-6 flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-pink-600 to-red-600 shadow-lg">
-                  {i + 1}
-                </div>
-                <h3 className="text-2xl font-bold mb-2">{step}</h3>
-              </motion.div>
-            ))}
-          </div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Image
+              src="/images/solutions/integration-illustration.jpg"
+              alt="Integration Illustration"
+              width={600}
+              height={400}
+              className="rounded-3xl shadow-xl"
+            />
+          </motion.div>
         </div>
       </section>
 
-      {/* CTA */}
-      <motion.section
-        initial={{ opacity: 0, scale: 0.95 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8 }}
-        viewport={{ once: true }}
-        className="relative py-28 text-center bg-gradient-to-r from-black via-gray-950 to-black text-white"
-      >
-        <div className="relative z-10 max-w-3xl mx-auto px-6">
-          <h2 className="text-4xl font-extrabold mb-6 text-pink-500">
-            Partner for Digital Transformation
-          </h2>
-          <p className="text-gray-400 mb-10 text-lg">
-            From connected devices to cloud AI — MeDevice delivers the integrated backbone that powers medical innovation worldwide.
-          </p>
-          <motion.a
-            href="/contact"
-            whileHover={{ scale: 1.1 }}
-            className="inline-block bg-gradient-to-r from-pink-500 to-red-600 text-white font-semibold px-10 py-4 rounded-full shadow-lg hover:shadow-pink-500/40 transition-all"
-          >
-            Request a Consultation
-          </motion.a>
-        </div>
-      </motion.section>
+      {/* ================= CTA ================= */}
+      <section className="py-24 text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl font-bold text-blue-800 mb-6"
+        >
+          Let’s Build Your Connected Ecosystem
+        </motion.h2>
+        <p className="max-w-3xl mx-auto text-slate-600 text-lg mb-8">
+          Partner with MeDevice to develop an integrated, intelligent
+          infrastructure that streamlines compliance, boosts innovation, and
+          accelerates time-to-market.
+        </p>
+        <Link
+          href="/contact"
+          className="inline-flex items-center gap-2 px-8 py-4 bg-blue-700 text-white font-semibold rounded-full hover:bg-blue-800 transition-all"
+        >
+          Get in Touch <ArrowRight className="w-5 h-5" />
+        </Link>
+      </section>
     </main>
   );
 }

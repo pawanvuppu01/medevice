@@ -5,202 +5,179 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function AboutPage() {
-  const milestones = [
-    {
-      year: "2019",
-      title: "Founded with Purpose",
-      desc: "Born from a vision to bridge compliance and creativity in the MedTech landscape.",
-    },
-    {
-      year: "2021",
-      title: "AI-Integrated Consulting Launched",
-      desc: "Introduced predictive compliance modeling and automated documentation systems.",
-    },
-    {
-      year: "2023",
-      title: "Global Expansion",
-      desc: "Established offices in the U.S. and India, partnering with 20+ MedTech innovators worldwide.",
-    },
-    {
-      year: "2025",
-      title: "Next-Gen MedDevice Cloud",
-      desc: "Currently building an AI-powered platform to revolutionize device validation, training, and market readiness.",
-    },
-  ];
-
-  const leadership = [
-    {
-      name: "Pawan Vuppu",
-      role: "Founder & Chief Innovation Officer",
-      img: "/images/team-pawan.jpg",
-      desc: "Drives MeDevice’s ecosystem — fusing MedTech strategy with AI-driven development and compliance architecture.",
-    },
-    {
-      name: "Ananya Rao",
-      role: "Head of Regulatory Science",
-      img: "/images/team-ananya.jpg",
-      desc: "Leads the development of evidence-based frameworks for AI/ML-enabled medical devices.",
-    },
-    {
-      name: "Raj Mehta",
-      role: "Director of Global Partnerships",
-      img: "/images/team-raj.jpg",
-      desc: "Strengthens alliances across healthcare tech, manufacturing, and R&D organizations worldwide.",
-    },
-  ];
-
-  const locations = [
-    { region: "USA", offices: "San Francisco, Boston" },
-    { region: "Europe", offices: "Berlin, Dublin" },
-    { region: "India", offices: "Hyderabad, Bangalore" },
-    { region: "Japan", offices: "Tokyo" },
-  ];
-
   return (
-    <main className="bg-gradient-to-b from-black via-gray-950 to-black text-gray-100 min-h-screen">
-      {/* ================= HERO ================= */}
-      <section className="relative h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
-        <Image
-          src="/images/heroes/hero-about.jpg"
-          alt="About MeDevice"
-          fill
-          priority
-          className="object-cover brightness-[0.45]"
-        />
-        <div className="relative z-10 px-6 max-w-5xl">
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent leading-tight"
-          >
-            Shaping the Future of MedTech Innovation
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-lg md:text-xl text-gray-300 mt-6 max-w-3xl mx-auto"
-          >
-            MeDevice is redefining how medical device companies innovate,
-            validate, and launch — blending regulatory science with artificial
-            intelligence and human expertise.
-          </motion.p>
-        </div>
-      </section>
-
-      {/* ================= OUR MISSION ================= */}
-      <section className="py-24 border-t border-gray-800 bg-black/40 backdrop-blur-md text-center">
-        <h2 className="text-4xl font-bold text-red-400 mb-8">Our Mission & Vision</h2>
-        <div className="max-w-5xl mx-auto text-lg text-gray-300 leading-relaxed space-y-8 px-6">
-          <p>
-            <strong>Mission:</strong> To empower MedTech innovators through intelligent
-            systems, expert collaboration, and AI-driven regulatory insights —
-            accelerating safe and compliant healthcare breakthroughs.
+    <main className="overflow-hidden bg-white text-slate-800 selection:bg-blue-200 selection:text-blue-900">
+      <section className="relative flex flex-col items-center justify-center text-center py-40 px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="relative z-10 max-w-5xl"
+        >
+          <h1 className="text-6xl md:text-7xl font-extrabold text-blue-900 leading-tight">
+            About <span className="italic text-blue-600">MeDevice</span>
+          </h1>
+          <p className="mt-8 text-xl text-slate-700 font-light max-w-3xl mx-auto">
+            A trusted partner in medical-device transformation — where
+            innovation, compliance, and human impact converge.
           </p>
-          <p>
-            <strong>Vision:</strong> A world where innovation and compliance coexist
-            seamlessly — every life-saving device built with speed, transparency,
-            and trust.
-          </p>
+        </motion.div>
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/images/heroes/hero-about.jpg"
+            alt="About Hero"
+            fill
+            priority
+            className="object-cover brightness-[0.55]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/20 to-slate-100/80" />
         </div>
       </section>
 
-      {/* ================= TIMELINE ================= */}
-      <section className="py-24 border-t border-gray-800 bg-gradient-to-b from-gray-950 to-black">
-        <h2 className="text-4xl font-bold text-red-400 text-center mb-14">
-          Our Journey
+      <section className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-bold text-blue-800 mb-10"
+        >
+          Who We Are
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="max-w-5xl mx-auto text-lg text-slate-700 leading-relaxed font-light"
+        >
+          MeDevice was founded with a simple but powerful purpose — to empower
+          medical innovators with tools, expertise, and strategy that bring
+          compliant and life-changing technologies to the global market.
+          <br />
+          <br />
+          Our journey began in 2019 when a small team of biomedical engineers,
+          regulatory specialists, and software architects realized that the
+          medical-device industry was evolving faster than the frameworks that
+          governed it. The need for a bridge between innovation and compliance
+          was urgent — and MeDevice was born.
+          <br />
+          <br />
+          Today, we serve clients across 15 countries, supporting every stage
+          of device development — from concept design to clinical validation and
+          market release. Our solutions merge AI-assisted analytics with
+          evidence-based regulatory guidance, reducing timelines and ensuring
+          uncompromising quality.
+        </motion.p>
+      </section>
+
+      <section className="py-24 bg-gradient-to-r from-white via-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-blue-800 mb-10"
+        >
+          Our Evolution
+        </motion.h2>
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 px-6 text-left">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="bg-white rounded-3xl p-8 shadow-lg border border-slate-200"
+          >
+            <h3 className="text-2xl font-semibold text-blue-700 mb-3">
+              From Vision to Global Impact
+            </h3>
+            <p className="text-slate-700 font-light leading-relaxed">
+              What began as a two-person consultancy in 2019 has evolved into a
+              multinational MedTech accelerator. By leveraging emerging
+              technologies like machine learning, computer vision, and data
+              traceability, we’ve turned compliance into a catalyst for
+              innovation.
+              <br />
+              <br />
+              Our collaborations with global manufacturers and research
+              institutions have delivered groundbreaking results — from smart
+              prosthetics to AI-powered diagnostics that redefine accessibility
+              in healthcare.
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="bg-white rounded-3xl p-8 shadow-lg border border-slate-200"
+          >
+            <h3 className="text-2xl font-semibold text-blue-700 mb-3">
+              Our Leadership
+            </h3>
+            <p className="text-slate-700 font-light leading-relaxed">
+              MeDevice’s leadership brings together decades of expertise across
+              MedTech engineering, AI, and quality management.  
+              <strong> Pawan Vuppu</strong>, our Founder & Chief Innovation
+              Officer, leads the global transformation of compliance
+              architecture through digital intelligence.  
+              Alongside him, experts from biomedical, mechanical, and data
+              science backgrounds drive innovation that merges human insight
+              with algorithmic precision.
+            </p>
+          </motion.div>
+        </div>
+      </section>
+
+      <section className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-bold text-blue-800 mb-10"
+        >
+          Innovation Meets Responsibility
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="max-w-5xl mx-auto text-lg text-slate-700 leading-relaxed font-light"
+        >
+          Every innovation carries responsibility — to patients, to clinicians,
+          and to society. At MeDevice, our commitment to safety and compliance
+          is not a box to tick; it’s the foundation of everything we build.
+          <br />
+          <br />
+          Through ethical AI design, transparent reporting, and
+          cross-disciplinary collaboration, we ensure that every product we
+          touch aligns with international standards such as ISO 13485, EU MDR,
+          and FDA 21 CFR Part 820.
+        </motion.p>
+      </section>
+
+      <section className="py-28 text-center bg-gradient-to-r from-blue-700 to-blue-900 text-white">
+        <h2 className="text-4xl font-bold mb-4">
+          Join Us in Shaping the Future of MedTech
         </h2>
-        <div className="max-w-5xl mx-auto px-6 space-y-12">
-          {milestones.map((m, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: i % 2 === 0 ? -50 : 50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className="relative border-l-4 border-red-500 pl-6 hover:pl-8 transition-all"
-            >
-              <h3 className="text-2xl font-bold text-red-400">{m.year}</h3>
-              <p className="text-xl font-semibold mt-1">{m.title}</p>
-              <p className="text-gray-400 mt-2">{m.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ================= LEADERSHIP ================= */}
-      <section className="py-24 border-t border-gray-800 bg-black/30 backdrop-blur-md text-center">
-        <h2 className="text-4xl font-bold text-red-400 mb-14">
-          Leadership & Innovation Team
-        </h2>
-        <div className="max-w-6xl mx-auto grid sm:grid-cols-2 md:grid-cols-3 gap-10 px-8">
-          {leadership.map((m, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              className="bg-white/5 border border-gray-700 rounded-3xl p-6 hover:bg-white/10 transition-all"
-            >
-              <Image
-                src={m.img}
-                alt={m.name}
-                width={200}
-                height={200}
-                className="rounded-full mx-auto mb-4 border border-red-400 object-cover"
-              />
-              <h3 className="text-xl font-semibold text-red-400">{m.name}</h3>
-              <p className="text-gray-400 text-sm mb-3">{m.role}</p>
-              <p className="text-sm text-gray-300">{m.desc}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ================= GLOBAL FOOTPRINT ================= */}
-      <section className="py-24 border-t border-gray-800 bg-gradient-to-r from-gray-900 via-black to-gray-900 text-center">
-        <h2 className="text-4xl font-bold text-red-400 mb-8">Global Footprint</h2>
-        <p className="text-gray-400 max-w-3xl mx-auto mb-10 text-lg">
-          MeDevice operates across North America, Europe, and Asia, delivering
-          precision consulting, staffing, and digital training solutions to
-          MedTech enterprises worldwide.
-        </p>
-        <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto px-8">
-          {locations.map((loc, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.15 }}
-              className="bg-white/5 border border-gray-700 rounded-2xl p-6 hover:bg-white/10 transition-all"
-            >
-              <h3 className="text-xl font-semibold text-red-400">
-                {loc.region}
-              </h3>
-              <p className="text-sm text-gray-300 mt-2">{loc.offices}</p>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ================= CTA ================= */}
-      <section className="py-24 text-center bg-gradient-to-r from-red-700 to-pink-600 text-white">
-        <h2 className="text-4xl font-bold mb-4">Join the MeDevice Movement</h2>
-        <p className="max-w-3xl mx-auto text-pink-100 mb-8 text-lg">
-          Together, we can build the next generation of intelligent medical
-          devices — compliant, connected, and human-centered.
+        <p className="max-w-3xl mx-auto text-blue-100 text-lg mb-10 font-light">
+          We invite innovators, engineers, and researchers to be part of our
+          global ecosystem. Together, we can create medical solutions that
+          elevate lives and empower humanity.
         </p>
         <Link
           href="/contact"
-          className="bg-white text-red-700 font-semibold px-10 py-4 rounded-full shadow-xl hover:scale-110 hover:bg-gray-100 transition-all"
+          className="bg-white text-blue-700 font-semibold px-10 py-4 rounded-full shadow-xl hover:bg-blue-100 hover:scale-105 transition-all"
         >
           Get in Touch
         </Link>
       </section>
 
-      <footer className="py-10 text-center text-gray-500 text-sm bg-black border-t border-gray-800">
+      <footer className="py-10 text-center text-slate-500 text-sm bg-white border-t border-slate-200">
         © {new Date().getFullYear()} MeDevice Inc. | Empowering MedTech Through AI
       </footer>
     </main>

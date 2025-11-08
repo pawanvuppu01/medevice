@@ -1,32 +1,20 @@
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
-import AIAssistant from "@/components/AIAssistant"; // ✅ Import AI Assistant
 
 export const metadata = {
-  title: "MeDevice",
-  description: "Medical Device Consulting & Staffing Solutions by MeDevice",
+  title: "MeDevice | Medical Device Consulting Platform",
+  description:
+    "AI-driven consulting, staffing, and training solutions for MedTech innovators.",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="flex flex-col min-h-screen bg-gray-50 text-gray-900">
-        {/* ✅ Global Navigation Bar */}
+      <body className="bg-backgroundLight text-textDark antialiased">
         <Navbar />
-
-        {/* ✅ Main page content */}
-        <main className="flex-grow">{children}</main>
-
-        {/* ✅ Global Footer */}
+        <main className="pt-16 min-h-screen">{children}</main>
         <Footer />
-
-        {/* ✅ Scroll to Top Button */}
-        <ScrollToTop />
-
-        {/* ✅ Floating AI Assistant Orb */}
-        <AIAssistant />
       </body>
     </html>
   );

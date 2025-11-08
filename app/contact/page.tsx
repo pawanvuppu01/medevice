@@ -2,156 +2,199 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-  const [loading, setLoading] = useState(false);
-  const [feedback, setFeedback] = useState<string | null>(null);
+  const [formData, setFormData] = useState({
+    full_name: "",
+    email: "",
+    phone: "",
+    service: "General Inquiry",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
 
-  async function handleSubmit(e: React.FormEvent) {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
-    setFeedback(null);
+    await fetch("/api/contact", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(formData),
+    });
+    setSubmitted(true);
+  };
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      const data = await res.json();
-      if (data.success) {
-        setFeedback("✅ Message sent successfully!");
-        setForm({ name: "", email: "", message: "" });
-      } else {
-        setFeedback(`❌ ${data.error}`);
-      }
-    } catch {
-      setFeedback("❌ Failed to send message.");
-    } finally {
-      setLoading(false);
-    }
-  }
+  if (submitted)
+    return (
+      <main className="min-h-screen bg-gradient-to-b from-white via-blue-50 to-slate-100 flex items-center justify-center text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="bg-white p-10 rounded-3xl shadow-lg max-w-lg"
+        >
+          <h1 className="text-3xl font-bold text-blue-700 mb-3">
+            Message Sent Successfully!
+          </h1>
+          <p className="text-slate-600">
+            Thank you, {formData.full_name.split(" ")[0]} — our team will reach out to you shortly to discuss your request.
+          </p>
+        </motion.div>
+      </main>
+    );
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-950 via-black to-gray-900 text-gray-100 overflow-hidden">
-      {/* 🖼️ HERO SECTION */}
-      <section className="relative h-[75vh] flex flex-col justify-center items-center text-center overflow-hidden">
-        <Image
-          src="/images/contact-banner.jpg"
-          alt="Contact MeDevice"
-          fill
-          priority
-          className="object-cover brightness-[0.45]"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/80" />
-        <motion.div
+    <main className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-blue-50 text-slate-800">
+      {/* Hero Section */}
+      <section className="text-center py-20 bg-gradient-to-r from-blue-700 to-blue-900 text-white">
+        <motion.h1
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          className="relative z-10 max-w-3xl px-6"
+          transition={{ duration: 0.8 }}
+          className="text-5xl font-extrabold mb-4"
         >
-          <h1 className="text-6xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-red-600 via-pink-500 to-red-400 mb-6">
-            Get in Touch
-          </h1>
-          <p className="text-gray-300 text-lg leading-relaxed">
-            Have questions or want to collaborate? Reach out — we’re here to help you innovate and grow.
-          </p>
-        </motion.div>
+          Let’s Connect with MeDevice
+        </motion.h1>
+        <p className="max-w-3xl mx-auto text-blue-100 text-lg">
+          Reach out to discuss your project, staffing requirements, or partnership opportunities.  
+          Our experts typically respond within 24 hours.
+        </p>
       </section>
 
-      {/* 📨 CONTACT FORM SECTION */}
-      <section className="py-24 px-6 max-w-6xl mx-auto grid md:grid-cols-2 gap-12 border-t border-gray-800">
-        {/* FORM SIDE */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
+      {/* Main Form + Contact Info */}
+      <section className="max-w-6xl mx-auto py-24 px-6 grid md:grid-cols-2 gap-12 items-start">
+        {/* Contact Form */}
+        <motion.form
+          onSubmit={handleSubmit}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.8 }}
-          className="bg-white/5 backdrop-blur-md rounded-2xl p-8 border border-gray-800 shadow-lg"
+          className="bg-white shadow-xl rounded-3xl p-10 border border-slate-200 space-y-6"
         >
-          <h2 className="text-3xl font-bold text-red-400 mb-6">Send a Message</h2>
-          <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
-            <input
-              type="text"
-              placeholder="Your Name"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
-              required
-              className="p-3 rounded-lg bg-black/40 border border-gray-700 text-white focus:border-red-500 outline-none"
-            />
-            <input
-              type="email"
-              placeholder="Your Email"
-              value={form.email}
-              onChange={(e) => setForm({ ...form, email: e.target.value })}
-              required
-              className="p-3 rounded-lg bg-black/40 border border-gray-700 text-white focus:border-red-500 outline-none"
-            />
-            <textarea
-              placeholder="Your Message"
-              value={form.message}
-              onChange={(e) => setForm({ ...form, message: e.target.value })}
-              required
-              className="p-3 rounded-lg bg-black/40 border border-gray-700 text-white focus:border-red-500 outline-none h-40"
-            />
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              disabled={loading}
-              type="submit"
-              className="bg-gradient-to-r from-red-600 to-pink-600 text-white font-semibold py-3 rounded-full shadow-lg hover:shadow-pink-500/30 transition-all"
-            >
-              {loading ? "Sending..." : "Send Message"}
-            </motion.button>
-          </form>
-          {feedback && (
-            <p className="text-center mt-4 text-sm text-gray-300">{feedback}</p>
-          )}
-        </motion.div>
+          <h2 className="text-2xl font-bold text-blue-800 mb-4">
+            Send us a Message
+          </h2>
 
-        {/* CONTACT INFO SIDE */}
+          <div className="grid md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-semibold mb-2">Full Name</label>
+              <input
+                type="text"
+                name="full_name"
+                required
+                value={formData.full_name}
+                onChange={handleChange}
+                className="w-full border border-slate-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-semibold mb-2">Email Address</label>
+              <input
+                type="email"
+                name="email"
+                required
+                value={formData.email}
+                onChange={handleChange}
+                className="w-full border border-slate-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold mb-2">Phone (Optional)</label>
+            <input
+              type="tel"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              className="w-full border border-slate-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold mb-2">Service Type</label>
+            <select
+              name="service"
+              value={formData.service}
+              onChange={handleChange}
+              className="w-full border border-slate-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
+            >
+              <option>General Inquiry</option>
+              <option>Consulting Services</option>
+              <option>Staffing / Recruitment</option>
+              <option>Training & Workshops</option>
+              <option>Technical Support</option>
+              <option>Partnership / Collaboration</option>
+            </select>
+          </div>
+
+          <div>
+            <label className="block text-sm font-semibold mb-2">Message</label>
+            <textarea
+              name="message"
+              rows={6}
+              required
+              value={formData.message}
+              onChange={handleChange}
+              placeholder="Write your message here..."
+              className="w-full border border-slate-300 rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-600"
+            ></textarea>
+          </div>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            type="submit"
+            className="w-full bg-blue-700 text-white font-semibold py-4 rounded-full hover:bg-blue-800 transition-all flex items-center justify-center gap-2"
+          >
+            <Send className="w-5 h-5" /> Send Message
+          </motion.button>
+        </motion.form>
+
+        {/* Company Info */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-          className="flex flex-col justify-center space-y-8"
+          transition={{ duration: 0.6 }}
+          className="space-y-10"
         >
-          <h2 className="text-3xl font-bold text-red-400 mb-4">
+          <h2 className="text-2xl font-bold text-blue-800">
             Contact Information
           </h2>
-          <p className="text-gray-400 leading-relaxed max-w-md">
-            Our experts are available Monday to Friday, 9 AM – 6 PM PST.  
-            Send us a message or visit our office.
+          <p className="text-slate-600 text-lg">
+            Have a question or need immediate support?  
+            We’re here to help — reach out using the details below.
           </p>
 
-          <div className="space-y-3 text-gray-300">
-            <p>📍 123 Innovation Drive, San Francisco, CA, USA</p>
-            <p>📧 info@medeviceusa.com</p>
-            <p>📞 +1 (415) 555-1234</p>
+          <div className="space-y-4 text-slate-700">
+            <p className="flex items-center gap-3">
+              <Mail className="w-5 h-5 text-blue-700" /> support@medeviceusa.com
+            </p>
+            <p className="flex items-center gap-3">
+              <Phone className="w-5 h-5 text-blue-700" /> +1 (800) 555-2789
+            </p>
+            <p className="flex items-center gap-3">
+              <MapPin className="w-5 h-5 text-blue-700" /> San Francisco, California, USA
+            </p>
           </div>
 
-          {/* 🗺️ LIVE GOOGLE MAP EMBED */}
-          <div className="rounded-xl overflow-hidden border border-gray-700 shadow-md h-[350px]">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.019473871869!2d-122.402049224212!3d37.79225647198793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085808c0c6bb1b1%3A0x7e0a6b3d3763b9e9!2s123%20Innovation%20Dr%2C%20San%20Francisco%2C%20CA%2094105!5e0!3m2!1sen!2sus!4v1698938156004!5m2!1sen!2sus"
-              width="100%"
-              height="100%"
-              style={{ border: 0 }}
-              allowFullScreen={true}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="MeDevice Office Map"
-            ></iframe>
+          <div className="pt-4">
+            <h3 className="font-semibold text-slate-700 mb-2">
+              Office Hours
+            </h3>
+            <p className="text-slate-600">
+              Monday – Friday: 9:00 AM – 6:00 PM (PST)
+            </p>
+            <p className="text-slate-600">
+              Saturday – Sunday: Closed
+            </p>
           </div>
         </motion.div>
       </section>
-
-      {/* 🌇 FOOTER */}
-      <footer className="py-10 text-center text-gray-500 text-sm bg-black border-t border-gray-800">
-        © {new Date().getFullYear()} MeDevice Inc. | All Rights Reserved
-      </footer>
     </main>
   );
 }

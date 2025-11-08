@@ -2,224 +2,216 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { useState } from "react";
+import Link from "next/link";
 
 export default function CareersPage() {
-  const [form, setForm] = useState({ name: "", email: "", role: "", message: "" });
-  const [submitted, setSubmitted] = useState(false);
-
-  const jobs = [
+  const values = [
     {
-      title: "AI Research Engineer",
-      type: "Full-Time",
-      location: "San Francisco, CA / Remote",
-      desc: "Work on next-gen AI models for regulatory intelligence, MedTech optimization, and document automation.",
+      title: "Innovation with Integrity",
+      desc: "Every line of code, every compliance framework, and every partnership we build reflects a commitment to ethical innovation. We believe in using technology to make healthcare smarter, safer, and more humane.",
     },
     {
-      title: "Regulatory Data Analyst",
-      type: "Full-Time",
-      location: "Hyderabad, India / Hybrid",
-      desc: "Analyze global medical compliance datasets to train AI systems and optimize audit readiness.",
+      title: "Collaboration Beyond Borders",
+      desc: "Our global team thrives on diversity. With engineers, scientists, and strategists across continents, we blend perspectives to create solutions that serve the world — not just one market.",
     },
     {
-      title: "Frontend Developer (Next.js + Tailwind)",
-      type: "Full-Time",
-      location: "Remote",
-      desc: "Build interactive and accessible healthcare dashboards, powered by real-time analytics and 3D data visualization.",
+      title: "Continuous Growth",
+      desc: "At MeDevice, learning never stops. From AI-driven design workshops to regulatory bootcamps, we help you stay on the cutting edge of MedTech and software engineering.",
     },
   ];
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    console.log("📝 Application Submitted:", form);
-    setSubmitted(true);
-  }
+  const benefits = [
+    "Flexible hybrid work options (US, Europe, India)",
+    "Comprehensive healthcare & wellness coverage",
+    "Professional training and certification reimbursements",
+    "Stock options and performance-based incentives",
+    "Global collaboration and travel opportunities",
+  ];
+
+  const roles = [
+    {
+      title: "Regulatory Affairs Specialist",
+      location: "San Francisco, CA / Remote",
+      desc: "Guide next-generation medical devices through FDA and MDR submissions while collaborating with cross-functional design teams.",
+    },
+    {
+      title: "Full Stack Developer (Next.js + Cloud)",
+      location: "Remote / India / Europe",
+      desc: "Develop scalable, secure applications that power MeDevice’s global consulting and analytics platform.",
+    },
+    {
+      title: "AI Data Scientist - Healthcare Analytics",
+      location: "Boston, MA / Hybrid",
+      desc: "Apply deep learning models to post-market surveillance and predictive risk assessment in regulated medical environments.",
+    },
+  ];
 
   return (
-    <main className="bg-gradient-to-b from-black via-gray-950 to-black text-gray-100 min-h-screen">
-      {/* ================= HERO ================= */}
-      <section className="relative h-[85vh] flex flex-col justify-center items-center text-center overflow-hidden">
-        <Image
-          src="/images/careers-banner.jpg"
-          alt="Careers at MeDevice"
-          fill
-          priority
-          className="object-cover brightness-[0.45]"
-        />
-        <div className="relative z-10 px-6 max-w-5xl">
-          <motion.h1
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent"
-          >
-            Join the MeDevice Movement
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-lg md:text-xl text-gray-300 mt-6 max-w-3xl mx-auto"
-          >
-            Be part of a global AI-driven mission transforming healthcare technology.
-          </motion.p>
+    <main className="overflow-hidden bg-white text-slate-800 selection:bg-blue-200 selection:text-blue-900">
+      {/* ===== HERO ===== */}
+      <section className="relative flex flex-col items-center justify-center text-center py-40 px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="relative z-10 max-w-5xl"
+        >
+          <h1 className="text-6xl md:text-7xl font-extrabold text-blue-900 leading-tight">
+            Join the <span className="italic text-blue-600">MeDevice</span> Team
+          </h1>
+          <p className="mt-8 text-xl text-slate-700 font-light max-w-3xl mx-auto">
+            Be part of a mission that’s reshaping medical technology.  
+            Work with passionate innovators driving real-world impact through AI,
+            engineering, and regulatory excellence.
+          </p>
+        </motion.div>
+
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/images/careers/careers-banner.jpg"
+            alt="Careers Banner"
+            fill
+            priority
+            className="object-cover brightness-[0.55]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/20 to-slate-100/80" />
         </div>
       </section>
 
-      {/* ================= OPEN POSITIONS ================= */}
-      <section className="py-24 border-t border-gray-800 bg-black/40 backdrop-blur-md">
-        <h2 className="text-4xl font-bold text-red-400 text-center mb-14">
-          Current Openings
-        </h2>
-        <div className="max-w-6xl mx-auto grid md:grid-cols-2 lg:grid-cols-3 gap-10 px-8">
-          {jobs.map((job, i) => (
+      {/* ===== CULTURE & VALUES ===== */}
+      <section className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-bold text-blue-800 mb-10"
+        >
+          Life at MeDevice
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="max-w-5xl mx-auto text-lg text-slate-700 leading-relaxed font-light mb-16"
+        >
+          At MeDevice, we see every challenge as a chance to create change.  
+          Our people are our most valuable technology — combining compassion,
+          intellect, and creativity to build solutions that redefine what’s
+          possible in MedTech.  
+          <br /><br />
+          From day one, you’ll collaborate with experts across design, AI,
+          regulatory science, and product strategy. Whether working from our
+          innovation labs or remotely from home, you’ll help accelerate the
+          creation of devices that save lives worldwide.
+        </motion.p>
+
+        <div className="max-w-6xl mx-auto grid md:grid-cols-3 gap-10 text-left">
+          {values.map((val, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2 }}
-              className="bg-white/5 border border-gray-700 rounded-3xl p-6 hover:bg-white/10 transition-all shadow-lg"
+              className="bg-white border border-slate-200 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all"
             >
-              <h3 className="text-2xl font-semibold text-red-400 mb-2">
-                {job.title}
-              </h3>
-              <p className="text-sm text-gray-400 mb-2">{job.type}</p>
-              <p className="text-sm text-gray-400 mb-3">{job.location}</p>
-              <p className="text-gray-300 mb-4">{job.desc}</p>
-              <button
-                onClick={() => setForm({ ...form, role: job.title })}
-                className="bg-red-600 hover:bg-red-700 text-white py-2 px-5 rounded-full text-sm font-semibold transition-all"
-              >
-                Apply Now
-              </button>
+              <h3 className="text-2xl font-semibold text-blue-700 mb-4">{val.title}</h3>
+              <p className="text-slate-700 font-light leading-relaxed">{val.desc}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ================= CULTURE ================= */}
-      <section className="py-24 border-t border-gray-800 bg-gradient-to-b from-gray-950 to-black text-center">
-        <h2 className="text-4xl font-bold text-red-400 mb-10">
-          Life at MeDevice
-        </h2>
-        <p className="text-gray-400 max-w-3xl mx-auto mb-12 text-lg">
-          We blend science, creativity, and purpose. Every engineer, analyst, and innovator here shares a mission — to make technology empathetic, compliant, and global.
+      {/* ===== BENEFITS ===== */}
+      <section className="py-24 px-6 bg-gradient-to-r from-white via-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-blue-800 mb-10"
+        >
+          Why Work With Us
+        </motion.h2>
+        <p className="max-w-4xl mx-auto text-lg text-slate-700 font-light leading-relaxed mb-12">
+          We’re not just building a company — we’re building a legacy of excellence.  
+          When you join MeDevice, you join a mission to improve global healthcare.
+          We value your wellbeing, growth, and purpose.
         </p>
+        <ul className="max-w-3xl mx-auto text-left space-y-4 text-slate-700 font-light">
+          {benefits.map((b, i) => (
+            <motion.li
+              key={i}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.1 }}
+              className="flex items-start gap-3"
+            >
+              <span className="text-blue-600 text-xl">✔</span>
+              <p>{b}</p>
+            </motion.li>
+          ))}
+        </ul>
+      </section>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto px-8">
-          {[
-            { title: "Hybrid Work Model", icon: "🌍", desc: "Flexible remote and in-office options for balance and innovation." },
-            { title: "Continuous Learning", icon: "📚", desc: "Upskilling programs with AI, Cloud, and Regulatory Bootcamps." },
-            { title: "Inclusive Culture", icon: "🤝", desc: "We celebrate diversity, equity, and the spirit of collaboration." },
-          ].map((item, i) => (
+      {/* ===== OPEN ROLES ===== */}
+      <section className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-bold text-blue-800 mb-10"
+        >
+          Current Opportunities
+        </motion.h2>
+        <div className="max-w-5xl mx-auto space-y-8 text-left">
+          {roles.map((role, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.15 }}
-              className="bg-white/5 border border-gray-700 rounded-2xl p-6 hover:bg-white/10 transition-all"
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2 }}
+              className="bg-white border border-slate-200 rounded-3xl p-8 shadow-md hover:shadow-lg transition-all"
             >
-              <div className="text-4xl mb-3">{item.icon}</div>
-              <h3 className="text-xl font-semibold text-red-400 mb-1">{item.title}</h3>
-              <p className="text-gray-300 text-sm">{item.desc}</p>
+              <h3 className="text-2xl font-semibold text-blue-700">{role.title}</h3>
+              <p className="text-slate-500 text-sm mb-2">{role.location}</p>
+              <p className="text-slate-700 font-light mb-4">{role.desc}</p>
+              <Link
+                href="/contact"
+                className="bg-blue-700 text-white font-medium px-6 py-2 rounded-full hover:bg-blue-800 transition-all"
+              >
+                Apply Now
+              </Link>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ================= APPLICATION FORM ================= */}
-      <section className="py-24 border-t border-gray-800 bg-black/40 backdrop-blur-md">
-        <div className="max-w-3xl mx-auto text-center">
-          <h2 className="text-4xl font-bold text-red-400 mb-8">
-            Submit Your Application
-          </h2>
-          <p className="text-gray-400 mb-10">
-            Tell us why you’re passionate about transforming MedTech with AI.
-          </p>
-
-          {!submitted ? (
-            <form
-              onSubmit={handleSubmit}
-              className="space-y-6 bg-white/5 border border-gray-700 p-8 rounded-2xl text-left"
-            >
-              <div>
-                <label className="block text-sm text-gray-400 mb-2">Full Name</label>
-                <input
-                  type="text"
-                  value={form.name}
-                  onChange={(e) => setForm({ ...form, name: e.target.value })}
-                  required
-                  className="w-full bg-black/40 border border-gray-600 rounded-lg p-3 text-gray-100"
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-gray-400 mb-2">Email</label>
-                <input
-                  type="email"
-                  value={form.email}
-                  onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  required
-                  className="w-full bg-black/40 border border-gray-600 rounded-lg p-3 text-gray-100"
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-gray-400 mb-2">Position</label>
-                <input
-                  type="text"
-                  value={form.role}
-                  onChange={(e) => setForm({ ...form, role: e.target.value })}
-                  placeholder="AI Research Engineer"
-                  className="w-full bg-black/40 border border-gray-600 rounded-lg p-3 text-gray-100"
-                />
-              </div>
-              <div>
-                <label className="block text-sm text-gray-400 mb-2">Message</label>
-                <textarea
-                  rows={5}
-                  value={form.message}
-                  onChange={(e) => setForm({ ...form, message: e.target.value })}
-                  required
-                  className="w-full bg-black/40 border border-gray-600 rounded-lg p-3 text-gray-100"
-                ></textarea>
-              </div>
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                type="submit"
-                className="bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-8 rounded-full shadow-xl transition"
-              >
-                Send Application
-              </motion.button>
-            </form>
-          ) : (
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="bg-green-600/20 border border-green-500/40 p-6 rounded-xl text-green-300 mt-8"
-            >
-              ✅ Thank you! Your application has been received. Our HR team will reach out soon.
-            </motion.div>
-          )}
-        </div>
-      </section>
-
-      {/* ================= CTA ================= */}
-      <section className="py-24 text-center bg-gradient-to-r from-red-700 to-pink-600 text-white">
-        <h2 className="text-4xl font-bold mb-4">Shape the Future with MeDevice</h2>
-        <p className="max-w-3xl mx-auto text-pink-100 mb-8 text-lg">
-          Whether you’re an engineer, analyst, or innovator — your next big breakthrough starts here.
+      {/* ===== CTA ===== */}
+      <section className="py-28 text-center bg-gradient-to-r from-blue-700 to-blue-900 text-white">
+        <h2 className="text-4xl font-bold mb-4">
+          Shape the Future of MedTech With Us
+        </h2>
+        <p className="max-w-3xl mx-auto text-blue-100 text-lg mb-10 font-light">
+          Whether you’re an engineer, scientist, designer, or strategist —  
+          MeDevice offers the opportunity to make real, measurable impact.
+          Let’s build the future of healthcare, together.
         </p>
-        <a
+        <Link
           href="/contact"
-          className="bg-white text-red-700 font-semibold px-10 py-4 rounded-full shadow-xl hover:scale-110 hover:bg-gray-100 transition-all"
+          className="bg-white text-blue-700 font-semibold px-10 py-4 rounded-full shadow-xl hover:bg-blue-100 hover:scale-105 transition-all"
         >
-          Contact HR
-        </a>
+          Join Our Team
+        </Link>
       </section>
 
-      <footer className="py-10 text-center text-gray-500 text-sm bg-black border-t border-gray-800">
-        © {new Date().getFullYear()} MeDevice Inc. | Innovate. Inspire. Impact.
+      <footer className="py-10 text-center text-slate-500 text-sm bg-white border-t border-slate-200">
+        © {new Date().getFullYear()} MeDevice Inc. | Empowering MedTech Through AI
       </footer>
     </main>
   );

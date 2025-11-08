@@ -1,129 +1,170 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
-import {
-  FaLinkedin,
-  FaTwitter,
-  FaInstagram,
-  FaEnvelope,
-  FaPhoneAlt,
-  FaMapMarkerAlt,
-} from "react-icons/fa";
+import { motion } from "framer-motion";
+import Link from "next/link";
+import { Linkedin, Twitter, Github, Youtube } from "lucide-react";
+import { useState } from "react";
 
 export default function Footer() {
-  const fadeUp: Variants = {
-    hidden: { opacity: 0, y: 40 },
-    show: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        delay: 0.2,
-        duration: 0.8,
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    },
+  const [email, setEmail] = useState("");
+
+  const handleSubscribe = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Subscribed:", email);
+    setEmail("");
   };
 
+  const sections = [
+    {
+      title: "Company",
+      links: [
+        { name: "About Us", href: "/about" },
+        { name: "Careers", href: "/careers" },
+        { name: "Contact", href: "/contact" },
+        { name: "Projects", href: "/projects" },
+      ],
+    },
+    {
+      title: "Services",
+      links: [
+        { name: "Consulting", href: "/consulting" },
+        { name: "Staffing", href: "/staffing" },
+        { name: "Integrated Solutions", href: "/integrated-solutions" },
+        { name: "Training", href: "/training" },
+      ],
+    },
+    {
+      title: "Resources",
+      links: [
+        { name: "Blog / Insights", href: "/blog" },
+        { name: "Case Studies", href: "/case-studies" },
+        { name: "Privacy Policy", href: "/privacy" },
+        { name: "Terms of Use", href: "/terms" },
+      ],
+    },
+  ];
+
+  const socialIcons = [
+    {
+      name: "LinkedIn",
+      icon: <Linkedin size={22} />,
+      href: "https://linkedin.com",
+    },
+    {
+      name: "Twitter",
+      icon: <Twitter size={22} />,
+      href: "https://twitter.com",
+    },
+    {
+      name: "GitHub",
+      icon: <Github size={22} />,
+      href: "https://github.com",
+    },
+    {
+      name: "YouTube",
+      icon: <Youtube size={22} />,
+      href: "https://youtube.com",
+    },
+  ];
+
   return (
-    <footer className="relative overflow-hidden bg-gradient-to-b from-gray-950 via-black to-gray-900 text-gray-300 border-t border-white/10">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(255,80,80,0.1),transparent_70%)] blur-3xl" />
+    <footer className="relative overflow-hidden bg-gradient-to-b from-white via-slate-50 to-blue-50 border-t border-slate-200 text-slate-700">
+      {/* Floating background accent */}
+      <div className="absolute inset-0 pointer-events-none">
+        <motion.div
+          className="absolute top-0 left-0 w-64 h-64 bg-blue-200/40 rounded-full blur-3xl"
+          animate={{ y: [0, 20, 0] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+        />
+        <motion.div
+          className="absolute bottom-0 right-0 w-72 h-72 bg-blue-100/40 rounded-full blur-3xl"
+          animate={{ y: [0, -25, 0] }}
+          transition={{ duration: 14, repeat: Infinity, ease: "easeInOut" }}
+        />
+      </div>
 
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="relative z-10 max-w-7xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-10"
-      >
+      {/* Main Content */}
+      <div className="relative max-w-7xl mx-auto px-6 md:px-12 py-20 grid md:grid-cols-4 gap-12">
+        {/* Logo & Description */}
         <div>
-          <h3 className="text-xl font-bold text-white mb-4">MeDevice</h3>
-          <p className="text-sm text-gray-400 leading-relaxed">
-            Empowering medical innovation through AI, design, and compliance.
-            We bridge technology and healthcare to build smarter solutions for life.
+          <Link
+            href="/"
+            className="text-2xl font-extrabold text-blue-800 tracking-tight"
+          >
+            MeDevice<span className="text-blue-600">AI</span>
+          </Link>
+          <p className="mt-4 text-sm leading-relaxed text-slate-600 max-w-xs">
+            Empowering the next generation of MedTech innovation through
+            intelligent consulting, compliance, and AI-driven solutions.
           </p>
-        </div>
-
-        <div>
-          <h3 className="text-xl font-bold text-white mb-4">Explore</h3>
-          <ul className="space-y-2 text-sm">
-            {[
-              ["Home", "/"],
-              ["Consulting", "/consulting"],
-              ["Staffing", "/staffing"],
-              ["Solutions", "/integrated-solutions"],
-              ["Training", "/training"],
-              ["Contact", "/contact"],
-            ].map(([label, link]) => (
-              <motion.li
-                key={label}
-                whileHover={{ x: 4, color: "#fff" }}
-                transition={{ duration: 0.2 }}
-              >
-                <a href={link} className="hover:text-pink-400 transition">
-                  {label}
-                </a>
-              </motion.li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="text-xl font-bold text-white mb-4">Contact</h3>
-
-          <a
-            href="https://www.google.com/maps/place/123+Innovation+Drive,+San+Jose,+CA"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm text-gray-400 hover:text-pink-400 transition"
-          >
-            <FaMapMarkerAlt /> 123 Innovation Drive, San Jose, CA
-          </a>
-
-          <a
-            href="tel:+14085551234"
-            className="flex items-center gap-2 mt-3 text-sm text-gray-400 hover:text-pink-400 transition"
-          >
-            <FaPhoneAlt /> +1 (408) 555-1234
-          </a>
-
-          <a
-            href="mailto:hello@medevice.com"
-            className="flex items-center gap-2 mt-3 text-sm text-gray-400 hover:text-pink-400 transition"
-          >
-            <FaEnvelope /> hello@medevice.com
-          </a>
-
-          <div className="flex space-x-4 mt-6">
-            {[FaLinkedin, FaTwitter, FaInstagram].map((Icon, i) => (
-              <motion.a
+          {/* Social Icons */}
+          <div className="flex gap-4 mt-6">
+            {socialIcons.map((s, i) => (
+              <Link
                 key={i}
-                whileHover={{
-                  scale: 1.2,
-                  color: "#fff",
-                  textShadow: "0 0 12px rgba(255,255,255,0.8)",
-                }}
-                transition={{ duration: 0.3 }}
-                href="#"
-                className="text-gray-400 hover:text-pink-400 transition text-lg"
+                href={s.href}
+                target="_blank"
+                className="text-blue-700 hover:text-blue-900 bg-blue-100 hover:bg-blue-200 p-2 rounded-full transition-all shadow-sm"
               >
-                <Icon />
-              </motion.a>
+                {s.icon}
+              </Link>
             ))}
           </div>
         </div>
-      </motion.div>
 
-      <div className="border-t border-white/10 mt-8" />
+        {/* Quick Links */}
+        {sections.map((section, i) => (
+          <div key={i}>
+            <h3 className="text-lg font-semibold text-blue-800 mb-4">
+              {section.title}
+            </h3>
+            <ul className="space-y-2">
+              {section.links.map((link, j) => (
+                <li key={j}>
+                  <Link
+                    href={link.href}
+                    className="text-slate-600 hover:text-blue-700 transition-colors text-sm"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
 
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="relative z-10 text-center py-6 text-xs text-gray-500"
-      >
-        © {new Date().getFullYear()} MeDevice. All rights reserved. | Built with ❤️ by Pawan Vuppu
-      </motion.div>
+        {/* Newsletter Signup */}
+        <div>
+          <h3 className="text-lg font-semibold text-blue-800 mb-4">
+            Stay Updated
+          </h3>
+          <p className="text-sm text-slate-600 mb-4">
+            Subscribe to our newsletter for MedTech insights, AI trends, and
+            exclusive updates.
+          </p>
+          <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Your email"
+              required
+              className="w-full border border-slate-300 rounded-full px-5 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:outline-none"
+            />
+            <button
+              type="submit"
+              className="bg-blue-700 text-white rounded-full px-6 py-3 text-sm font-medium hover:bg-blue-800 hover:scale-105 transition-all"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="relative text-center py-6 text-sm text-slate-500 border-t border-slate-200">
+        © {new Date().getFullYear()} MeDevice Inc. | Empowering MedTech Through AI
+      </div>
     </footer>
   );
 }

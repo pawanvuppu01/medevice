@@ -3,303 +3,243 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import Slider from "react-slick";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 
 export default function HomePage() {
-  // --- Custom Slider Arrows ---
-  const CustomPrevArrow = (props: any) => (
-    <button
-      onClick={props.onClick}
-      className="absolute left-0 top-1/2 -translate-y-1/2 bg-white/90 text-red-700 p-3 rounded-full shadow-lg hover:scale-110 transition z-20"
-    >
-      <FaArrowLeft />
-    </button>
-  );
-
-  const CustomNextArrow = (props: any) => (
-    <button
-      onClick={props.onClick}
-      className="absolute right-0 top-1/2 -translate-y-1/2 bg-white/90 text-red-700 p-3 rounded-full shadow-lg hover:scale-110 transition z-20"
-    >
-      <FaArrowRight />
-    </button>
-  );
-
-  // --- Services ---
-  const services = [
-    {
-      title: "Consulting",
-      desc: "Strategic guidance to achieve regulatory excellence, design control optimization, and seamless market readiness.",
-      img: "/images/consulting.jpg",
-      link: "/consulting",
-    },
-    {
-      title: "Staffing & Recruiting",
-      desc: "We connect MedTech leaders with top-tier engineering, validation, and quality assurance professionals worldwide.",
-      img: "/images/staffing.jpg",
-      link: "/staffing",
-    },
-    {
-      title: "Training Programs",
-      desc: "Upskill your teams with practical, AI-driven workshops in quality, regulatory, and design control disciplines.",
-      img: "/images/training.jpg",
-      link: "/training",
-    },
-  ];
-
-  // --- Testimonials ---
-  const testimonials = [
-    {
-      name: "Dr. Sarah Nguyen",
-      company: "MedTech Corp",
-      message:
-        "MeDevice streamlined our FDA submission process — their regulatory expertise is unmatched.",
-      image: "anna",
-    },
-    {
-      name: "James Patel",
-      company: "BioSolutions Inc.",
-      message:
-        "Their consulting team was proactive, responsive, and guided us through every stage flawlessly.",
-      image: "brian",
-    },
-    {
-      name: "Laura Chen",
-      company: "DeviceLabs",
-      message:
-        "The MeDevice training workshops gave our QA team the edge we needed for ISO compliance.",
-      image: "claire",
-    },
-    {
-      name: "Alex Johnson",
-      company: "HealthLink Devices",
-      message:
-        "Professional, organized, and results-driven — a true partner for innovation.",
-      image: "david",
-    },
-  ];
-
-  // --- Collaborator Logos ---
-  const logos = [
-    { src: "/images/clients/client-medtronic.png", alt: "Medtronic" },
-    { src: "/images/clients/client-boston-scientific.png", alt: "Boston Scientific" },
-    { src: "/images/clients/client-stryker.png", alt: "Stryker" },
-    { src: "/images/clients/client-abbott.png", alt: "Abbott" },
-    { src: "/images/clients/client-johnson.png", alt: "Johnson & Johnson" },
-    { src: "/images/clients/client-pfizer.png", alt: "Pfizer" },
-    { src: "/images/clients/client-gehealthcare.png", alt: "GE Healthcare" },
-    { src: "/images/clients/client-philips.png", alt: "Philips" },
-    { src: "/images/clients/client-roche.png", alt: "Roche" },
-    { src: "/images/clients/client-siemens.png", alt: "Siemens" },
-  ];
-
-  // --- Slider Settings ---
-  const testimonialSettings = {
-    dots: true,
-    infinite: true,
-    speed: 600,
-    slidesToShow: 2,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 5000,
-    nextArrow: <CustomNextArrow />,
-    prevArrow: <CustomPrevArrow />,
-    responsive: [{ breakpoint: 768, settings: { slidesToShow: 1 } }],
-  };
-
-  const logoSettings = {
-    infinite: true,
-    slidesToShow: 4,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 2500,
-    speed: 700,
-    nextArrow: <CustomNextArrow />,
-    prevArrow: <CustomPrevArrow />,
-    responsive: [
-      { breakpoint: 1024, settings: { slidesToShow: 3 } },
-      { breakpoint: 768, settings: { slidesToShow: 2 } },
-      { breakpoint: 480, settings: { slidesToShow: 1 } },
-    ],
-  };
-
-  // --- Return Layout ---
   return (
-    <main className="bg-gradient-to-br from-gray-950 via-black to-gray-900 text-gray-100">
-      {/* HERO SECTION */}
-      <section className="relative h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
-        <Image
-          src="/images/hero-banner.jpg"
-          alt="AI-driven MedTech Innovation"
-          fill
-          priority
-          className="object-cover brightness-[0.4]"
-        />
-        <div className="relative z-10 px-6 max-w-5xl">
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent leading-tight"
-          >
-            Revolutionizing Medical Device Innovation
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 1 }}
-            className="text-lg md:text-xl text-gray-300 mt-6 max-w-3xl mx-auto"
-          >
-            MeDevice empowers MedTech organizations with AI-driven consulting,
-            regulatory strategy, and workforce solutions for next-gen healthcare.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 1 }}
-            className="mt-10 flex justify-center gap-6"
-          >
+    <main className="overflow-hidden text-slate-800 bg-white selection:bg-blue-200 selection:text-blue-900">
+      {/* HERO */}
+      <section className="relative flex flex-col items-center justify-center text-center py-40 px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="relative z-10 max-w-6xl"
+        >
+          <h1 className="text-6xl md:text-8xl font-extrabold leading-tight text-blue-900 tracking-tight">
+            MeDevice: Elevating{" "}
+            <span className="text-blue-600 italic">Medical Innovation</span>
+          </h1>
+          <p className="mt-8 text-xl md:text-2xl text-slate-700 max-w-3xl mx-auto font-light leading-relaxed">
+            Where advanced engineering meets ethical precision. MeDevice
+            empowers global MedTech pioneers to design, validate, and launch
+            transformative technologies that enhance human life.
+          </p>
+          <div className="mt-10 flex justify-center gap-5">
             <Link
               href="/consulting"
-              className="bg-red-600 hover:bg-red-700 px-8 py-4 rounded-full text-lg font-semibold shadow-xl hover:scale-105 transition-all"
+              className="bg-blue-700 text-white font-semibold px-10 py-4 rounded-full hover:bg-blue-800 transition-all shadow-md hover:scale-105"
             >
-              Explore Solutions
+              Explore Consulting
             </Link>
             <Link
               href="/contact"
-              className="border border-red-500 text-red-400 hover:text-white hover:bg-red-600/30 px-8 py-4 rounded-full text-lg font-semibold transition-all"
+              className="border border-blue-700 text-blue-700 font-semibold px-10 py-4 rounded-full hover:bg-blue-700 hover:text-white transition-all"
             >
               Contact Us
             </Link>
+          </div>
+        </motion.div>
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/images/hero-banner.jpg"
+            alt="MeDevice Hero"
+            fill
+            priority
+            className="object-cover brightness-[0.55]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/60 via-white/20 to-slate-100/90" />
+        </div>
+      </section>
+
+      {/* INTRO */}
+      <section className="py-28 px-6 bg-gradient-to-b from-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-bold text-blue-800 mb-10"
+        >
+          Redefining Compliance Through Intelligence
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="max-w-5xl mx-auto text-lg text-slate-700 leading-relaxed font-light"
+        >
+          Since 2019, MeDevice has evolved into a strategic partner for global
+          medical-device organizations, guiding them through design, testing,
+          and certification with precision and clarity. Our multidisciplinary
+          experts connect regulatory science, human-centered design, and
+          AI-driven validation to streamline product lifecycles. Every solution
+          we craft reflects our core belief that innovation and compliance must
+          co-exist seamlessly to serve human well-being. <br />
+          <br />
+          We collaborate with manufacturers, startups, and research labs to
+          bring life-saving technologies from concept to market faster — without
+          compromising safety or integrity. From initial risk analysis to
+          post-market surveillance, MeDevice ensures every device meets the
+          highest global standards.
+        </motion.p>
+      </section>
+
+      {/* MISSION + VALUES */}
+      <section className="py-28 px-6 bg-gradient-to-b from-white to-slate-50">
+        <motion.h2
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-center text-blue-800 mb-10"
+        >
+          Our Mission & Core Values
+        </motion.h2>
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10">
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200"
+          >
+            <h3 className="text-2xl font-semibold text-blue-700 mb-3">
+              Our Mission
+            </h3>
+            <p className="text-slate-700 leading-relaxed font-light">
+              To empower medical-device innovators with intelligent frameworks
+              and world-class expertise that accelerate regulatory readiness and
+              global market adoption. MeDevice transforms compliance from a
+              bottleneck into a strategic advantage.
+            </p>
+          </motion.div>
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+            className="bg-white rounded-2xl p-8 shadow-lg border border-slate-200"
+          >
+            <h3 className="text-2xl font-semibold text-blue-700 mb-3">
+              Our Values
+            </h3>
+            <ul className="text-slate-700 leading-relaxed space-y-3 list-disc list-inside font-light">
+              <li>
+                <strong>Integrity:</strong> We adhere to the highest standards
+                of ethics and transparency in every engagement.
+              </li>
+              <li>
+                <strong>Innovation:</strong> We fuse human expertise with
+                digital intelligence to revolutionize compliance systems.
+              </li>
+              <li>
+                <strong>Precision:</strong> Every deliverable undergoes rigorous
+                review to ensure safety and consistency.
+              </li>
+              <li>
+                <strong>Partnership:</strong> Our client relationships are built
+                on trust, respect, and long-term collaboration.
+              </li>
+            </ul>
           </motion.div>
         </div>
       </section>
 
-      {/* ABOUT SECTION */}
-      <section className="py-24 bg-black/30 backdrop-blur-lg text-center border-t border-gray-800">
-        <h2 className="text-4xl font-bold text-red-400 mb-8">Who We Are</h2>
-        <p className="max-w-4xl mx-auto text-lg text-gray-300 leading-relaxed">
-          <strong>MeDevice</strong> combines regulatory science, AI, and
-          engineering excellence to help medical device companies bring
-          innovations to market faster, safer, and smarter.
+      {/* GLOBAL IMPACT */}
+      <section className="py-28 px-6 bg-gradient-to-r from-blue-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-blue-800 mb-10"
+        >
+          Global Reach, Local Expertise
+        </motion.h2>
+        <p className="max-w-5xl mx-auto text-lg text-slate-700 leading-relaxed font-light mb-10">
+          MeDevice operates across the U.S., Europe, and Asia—bridging the
+          global MedTech ecosystem. With teams in San Francisco, Berlin,
+          Bangalore, and Tokyo, we deliver region-specific insights backed by
+          international standards. This cross-border synergy enables our clients
+          to anticipate regulatory shifts and stay ahead in a rapidly evolving
+          marketplace.
         </p>
-      </section>
-
-      {/* SERVICES SECTION */}
-      <section className="py-28 bg-gradient-to-br from-gray-950 via-black to-gray-900 text-center">
-        <h2 className="text-4xl font-bold text-red-400 mb-14">Our Core Services</h2>
-        <div className="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto px-8">
-          {services.map((s, i) => (
+        <div className="max-w-6xl mx-auto grid sm:grid-cols-2 md:grid-cols-4 gap-8">
+          {[
+            ["350+", "Projects Delivered"],
+            ["45+", "Expert Consultants"],
+            ["15", "Countries Served"],
+            ["100%", "Client Retention"],
+          ].map(([n, t], i) => (
             <motion.div
-              key={s.title}
-              initial={{ opacity: 0, y: 50 }}
+              key={i}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.2 }}
-              whileHover={{ scale: 1.07 }}
-              className="bg-white/10 border border-gray-700/40 rounded-3xl overflow-hidden group cursor-pointer"
+              className="p-8 bg-white shadow-lg rounded-2xl border border-slate-200 hover:shadow-xl transition-all"
             >
-              <Image
-                src={s.img}
-                alt={s.title}
-                width={600}
-                height={400}
-                className="w-full h-56 object-cover group-hover:scale-110 transition-transform duration-700"
-              />
-              <div className="p-6 text-left">
-                <h3 className="text-2xl font-bold text-red-400 mb-3">{s.title}</h3>
-                <p className="text-gray-300 mb-4">{s.desc}</p>
-                <Link
-                  href={s.link}
-                  className="text-red-500 font-semibold underline hover:text-red-300 transition"
-                >
-                  Learn More →
-                </Link>
-              </div>
+              <h3 className="text-4xl font-bold text-blue-700">{n}</h3>
+              <p className="text-slate-600 mt-2 font-medium">{t}</p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* COLLABORATORS & CLIENTS */}
-      <section className="relative py-24 bg-gradient-to-b from-black via-gray-950 to-black text-center border-t border-gray-800">
-        <h2 className="text-4xl font-bold text-red-400 mb-10">
-          Our Collaborators & Clients
-        </h2>
-        <p className="text-gray-400 max-w-3xl mx-auto mb-12">
-          Partnering with the most innovative MedTech companies worldwide.
-        </p>
-        <div className="max-w-6xl mx-auto px-8 relative">
-          <Slider {...logoSettings}>
-            {logos.map((logo, i) => (
-              <div key={i} className="px-6">
-                <div className="bg-white rounded-2xl p-6 flex justify-center items-center hover:scale-105 transition">
-                  <Image
-                    src={logo.src}
-                    alt={logo.alt}
-                    width={180}
-                    height={80}
-                    className="object-contain opacity-90 hover:opacity-100 transition"
-                  />
-                </div>
-              </div>
-            ))}
-          </Slider>
-        </div>
+      {/* AI ASSISTANT SECTION */}
+      <section className="relative py-32 bg-gradient-to-b from-white to-blue-50 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 1 }}
+          className="max-w-4xl mx-auto bg-white/80 backdrop-blur-md border border-slate-200 rounded-3xl p-10 shadow-xl"
+        >
+          <h2 className="text-4xl font-bold text-blue-800 mb-6">
+            Meet the MeDevice AI Consultant
+          </h2>
+          <p className="text-slate-700 text-lg leading-relaxed mb-8 font-light">
+            Your personalized digital expert for MedTech compliance.  
+            Get insights on regulatory pathways, documentation standards, and
+            device validation processes — all through intelligent conversation.  
+            This assistant understands the complexity of global standards and
+            provides structured, data-driven guidance to help you prepare for
+            audits, certifications, and quality submissions.
+          </p>
+          <div className="w-full flex flex-col sm:flex-row gap-4 justify-center mt-8">
+            <input
+              type="text"
+              placeholder="Ask about FDA, MDR, ISO, or device design..."
+              className="flex-1 px-6 py-4 rounded-full border border-slate-300 text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            <button className="bg-blue-700 text-white px-10 py-4 rounded-full hover:bg-blue-800 font-semibold transition-all">
+              Ask Assistant
+            </button>
+          </div>
+        </motion.div>
       </section>
 
-      {/* TESTIMONIALS */}
-      <section className="relative py-24 bg-gradient-to-b from-black via-gray-950 to-black text-center border-t border-gray-800">
-        <h2 className="text-4xl font-bold text-red-400 mb-12">Client Testimonials</h2>
-        <div className="max-w-6xl mx-auto px-8 relative">
-          <Slider {...testimonialSettings}>
-            {testimonials.map((t, i) => (
-              <div key={i} className="px-4">
-                <div className="bg-white/10 border border-gray-700/40 rounded-3xl p-8 shadow-lg text-left hover:scale-[1.02] transition">
-                  <div className="flex items-center mb-6">
-                    <Image
-                      src={`/images/testimonials/user-${t.image}.jpg`}
-                      alt={t.name}
-                      width={64}
-                      height={64}
-                      className="rounded-full border border-red-500 mr-4"
-                    />
-                    <div>
-                      <h4 className="font-semibold text-red-400">{t.name}</h4>
-                      <p className="text-sm text-gray-400">{t.company}</p>
-                    </div>
-                  </div>
-                  <p className="text-gray-300 italic">“{t.message}”</p>
-                </div>
-              </div>
-            ))}
-          </Slider>
-        </div>
-      </section>
-
-      {/* CTA SECTION */}
-      <section className="py-24 text-center bg-gradient-to-r from-red-700 to-pink-600 text-white">
+      {/* CTA */}
+      <section className="py-28 bg-gradient-to-r from-blue-700 to-blue-900 text-center text-white">
         <h2 className="text-4xl font-bold mb-4">
-          Ready to Transform Your MedTech Journey?
+          Partner with MeDevice for the Future of Healthcare
         </h2>
-        <p className="max-w-3xl mx-auto text-pink-100 mb-8 text-lg">
-          Let’s build the future of healthcare innovation — powered by
-          intelligence, compliance, and purpose.
+        <p className="max-w-3xl mx-auto text-blue-100 text-lg mb-10 font-light">
+          Together, we can accelerate safe innovation — combining human insight,
+          machine intelligence, and medical precision. Join hundreds of device
+          makers who trust MeDevice to make their vision a reality.
         </p>
         <Link
           href="/contact"
-          className="bg-white text-red-700 font-semibold px-10 py-4 rounded-full shadow-xl hover:scale-110 hover:bg-gray-100 transition-all"
+          className="bg-white text-blue-700 font-semibold px-10 py-4 rounded-full shadow-xl hover:bg-blue-100 hover:scale-105 transition-all"
         >
-          Partner With Us
+          Get in Touch
         </Link>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-10 text-center text-gray-500 text-sm bg-black border-t border-gray-800">
-        © {new Date().getFullYear()} MeDevice Inc. | Crafted with ❤️ and AI
+      <footer className="py-10 text-center text-slate-500 text-sm bg-white border-t border-slate-200">
+        © {new Date().getFullYear()} MeDevice Inc. | Empowering MedTech Through AI
       </footer>
     </main>
   );

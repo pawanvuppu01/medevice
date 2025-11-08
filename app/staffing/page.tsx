@@ -6,169 +6,191 @@ import Link from "next/link";
 
 export default function StaffingPage() {
   return (
-    <main className="bg-gradient-to-b from-black via-gray-950 to-black text-gray-100 min-h-screen">
-      {/* ================= HERO ================= */}
-      <section className="relative h-[90vh] flex flex-col justify-center items-center text-center overflow-hidden">
-        <Image
-          src="/images/staffing/staffing-banner.jpg"
-          alt="Staffing and Recruiting for MedTech"
-          fill
-          priority
-          className="object-cover brightness-[0.45]"
-        />
-        <div className="relative z-10 px-6 max-w-5xl">
-          <motion.h1
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1 }}
-            className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-red-500 to-pink-500 bg-clip-text text-transparent leading-tight"
-          >
-            Global MedTech Talent — Powered by Precision
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-lg md:text-xl text-gray-300 mt-6 max-w-3xl mx-auto"
-          >
-            We connect MedTech innovators with world-class engineering, regulatory,
-            and AI professionals — enabling compliant, scalable, and agile growth.
-          </motion.p>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.8 }}
-            className="mt-10 flex justify-center gap-6"
-          >
-            <Link
-              href="/contact"
-              className="bg-red-600 hover:bg-red-700 px-8 py-4 rounded-full text-lg font-semibold shadow-xl hover:scale-105 transition-all"
-            >
-              Hire Talent
-            </Link>
-            <Link
-              href="/consulting"
-              className="border border-red-500 text-red-400 hover:text-white hover:bg-red-600/30 px-8 py-4 rounded-full text-lg font-semibold transition-all"
-            >
-              Explore Consulting
-            </Link>
-          </motion.div>
+    <main className="overflow-hidden bg-white text-slate-800 selection:bg-blue-200 selection:text-blue-900">
+      {/* ===== HERO SECTION ===== */}
+      <section className="relative flex flex-col items-center justify-center text-center py-40 px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+          className="relative z-10 max-w-5xl"
+        >
+          <h1 className="text-6xl md:text-7xl font-extrabold text-blue-900 leading-tight">
+            Precision <span className="italic text-blue-600">Staffing & Recruitment</span>
+          </h1>
+          <p className="mt-8 text-xl text-slate-700 font-light max-w-3xl mx-auto">
+            Connecting MedTech innovators with world-class professionals in
+            engineering, regulatory, and digital transformation.
+          </p>
+        </motion.div>
+
+        <div className="absolute inset-0 -z-10">
+          <Image
+            src="/images/staffing/staffing-banner.jpg"
+            alt="Staffing Banner"
+            fill
+            priority
+            className="object-cover brightness-[0.55]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/20 to-slate-100/80" />
         </div>
       </section>
 
-      {/* ================= OVERVIEW ================= */}
-      <section className="py-24 text-center border-t border-gray-800 bg-black/30 backdrop-blur-lg">
-        <h2 className="text-4xl font-bold text-red-400 mb-8">Why MeDevice Staffing?</h2>
-        <p className="max-w-4xl mx-auto text-gray-300 text-lg leading-relaxed mb-12">
-          Our staffing and recruiting solutions help medical device manufacturers
-          build expert teams fast — while ensuring every placement aligns with
-          regulatory requirements, technical depth, and cultural fit.
-          We deliver speed and precision in talent acquisition for the global MedTech ecosystem.
-        </p>
-      </section>
-
-      {/* ================= EXPERTISE AREAS ================= */}
-      <section className="py-20 bg-gradient-to-br from-gray-950 via-black to-gray-900 border-t border-gray-800">
-        <h2 className="text-4xl font-bold text-red-400 text-center mb-14">
-          Specialized Talent We Provide
-        </h2>
-        <div className="grid md:grid-cols-3 gap-10 max-w-7xl mx-auto px-8">
-          {[
-            {
-              title: "Regulatory Affairs & QA Engineers",
-              desc: "Experts in FDA, ISO 13485, MDR, and QMS implementation ensuring global compliance.",
-              img: "/images/staffing/qa-team.jpg",
-            },
-            {
-              title: "AI & Data Science Specialists",
-              desc: "Machine learning engineers, bioinformaticians, and AI auditors transforming diagnostics and digital health.",
-              img: "/images/staffing/ai-team.jpg",
-            },
-            {
-              title: "Product Design & Validation Engineers",
-              desc: "Hardware and software validation professionals skilled in V&V, risk analysis, and usability engineering.",
-              img: "/images/staffing/design-team.jpg",
-            },
-          ].map((card, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 50 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.2 }}
-              whileHover={{ scale: 1.05 }}
-              className="relative rounded-3xl overflow-hidden border border-gray-700 hover:border-red-500/40 hover:shadow-red-500/30 transition-all group"
-            >
-              <Image
-                src={card.img}
-                alt={card.title}
-                width={500}
-                height={300}
-                className="object-cover w-full h-56 opacity-80 group-hover:opacity-100 group-hover:scale-105 transition duration-500"
-              />
-              <div className="p-6 bg-black/60 backdrop-blur-lg">
-                <h3 className="text-2xl font-bold text-red-400 mb-3">{card.title}</h3>
-                <p className="text-gray-300 text-sm">{card.desc}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ================= GLOBAL NETWORK ================= */}
-      <section className="py-24 text-center bg-black/30 border-t border-gray-800">
+      {/* ===== INTRODUCTION ===== */}
+      <section className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white text-center">
         <motion.h2
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ duration: 0.8 }}
-          className="text-4xl font-bold text-red-400 mb-8"
+          className="text-4xl md:text-5xl font-bold text-blue-800 mb-10"
         >
-          Our Global Talent Network
+          Building the Future Workforce of MedTech
         </motion.h2>
-        <p className="max-w-3xl mx-auto text-gray-300 text-lg mb-12">
-          MeDevice maintains a vast database of certified MedTech professionals across
-          25+ countries — enabling rapid, compliant placements for R&D, regulatory,
-          and AI-driven health product teams.
-        </p>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="max-w-5xl mx-auto text-lg text-slate-700 leading-relaxed font-light"
+        >
+          At MeDevice, we understand that the success of any medical technology
+          initiative lies in its people. Our staffing division provides end-to-end
+          workforce solutions for startups, enterprises, and clinical organizations.
+          <br /><br />
+          We specialize in connecting top-tier talent with critical roles across
+          regulatory compliance, R&D, manufacturing, data science, and cloud-based
+          medical systems. Every candidate is vetted for technical skill, domain
+          experience, and culture fit.
+        </motion.p>
+      </section>
 
-        <div className="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 px-8">
+      {/* ===== SERVICE SEGMENTS ===== */}
+      <section className="py-24 px-6 bg-gradient-to-r from-white via-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-blue-800 mb-10"
+        >
+          Specialized Recruitment Divisions
+        </motion.h2>
+        <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 text-left">
           {[
-            { country: "USA", count: "1,200+", field: "FDA & Clinical Engineers" },
-            { country: "Germany", count: "900+", field: "MDR Specialists" },
-            { country: "India", count: "1,500+", field: "AI & Software Validation" },
-            { country: "Japan", count: "700+", field: "Device Design Engineers" },
-          ].map((region, i) => (
+            {
+              title: "Regulatory & Quality Systems Talent",
+              desc: "We identify specialists in FDA submissions, ISO 13485, EU MDR compliance, and post-market surveillance — ensuring every hire strengthens your audit readiness.",
+            },
+            {
+              title: "Engineering & Product Development",
+              desc: "From embedded systems to AI-enabled devices, we supply engineers who accelerate development lifecycles without compromising on quality or safety.",
+            },
+            {
+              title: "Data Science & Digital Health",
+              desc: "MeDevice connects data scientists, analysts, and software experts who understand healthcare interoperability, cybersecurity, and predictive analytics.",
+            },
+            {
+              title: "Clinical & Manufacturing Professionals",
+              desc: "Whether scaling a pilot line or managing global distribution, our talent network includes experienced technicians, project leads, and validation engineers.",
+            },
+          ].map((sector, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.15 }}
-              className="bg-white/5 border border-gray-700 rounded-2xl p-6 hover:bg-white/10 transition-all"
+              viewport={{ once: true }}
+              transition={{ delay: i * 0.2 }}
+              className="bg-white border border-slate-200 rounded-3xl p-8 shadow-lg hover:shadow-xl transition-all"
             >
-              <h3 className="text-2xl font-bold text-red-400">{region.country}</h3>
-              <p className="text-gray-300 mt-2">{region.field}</p>
-              <p className="text-sm text-gray-400 mt-1">{region.count} professionals</p>
+              <h3 className="text-2xl font-semibold text-blue-700 mb-4">
+                {sector.title}
+              </h3>
+              <p className="text-slate-700 font-light leading-relaxed">
+                {sector.desc}
+              </p>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* ================= CTA ================= */}
-      <section className="py-24 text-center bg-gradient-to-r from-red-700 to-pink-600 text-white">
-        <h2 className="text-4xl font-bold mb-4">Build Your MedTech Dream Team</h2>
-        <p className="max-w-3xl mx-auto text-pink-100 mb-8 text-lg">
-          Partner with MeDevice to access elite MedTech talent — specialized, vetted, and aligned with your mission.
+      {/* ===== OUR APPROACH ===== */}
+      <section className="py-24 px-6 bg-gradient-to-b from-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl md:text-5xl font-bold text-blue-800 mb-10"
+        >
+          The MeDevice Hiring Philosophy
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="max-w-5xl mx-auto text-lg text-slate-700 leading-relaxed font-light"
+        >
+          Our recruitment model blends human expertise with technology.  
+          Using proprietary matching algorithms and domain-specific filters, 
+          we ensure every shortlisted candidate aligns with your mission and technical needs.
+          <br /><br />
+          We believe in partnerships, not placements. Our consultants engage deeply
+          with your team to understand your workflows, regulatory obligations,
+          and innovation goals — ensuring each hire becomes a long-term contributor.
+        </motion.p>
+      </section>
+
+      {/* ===== VALUE PROPOSITION ===== */}
+      <section className="py-24 px-6 bg-gradient-to-r from-white via-slate-50 to-white text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="text-4xl font-bold text-blue-800 mb-10"
+        >
+          Why Partner with MeDevice?
+        </motion.h2>
+        <div className="max-w-5xl mx-auto text-lg text-slate-700 leading-relaxed font-light space-y-6">
+          <p>
+            With a presence across the U.S., Europe, and Asia, MeDevice provides 
+            global reach with local understanding. Our recruiters come from 
+            healthcare and engineering backgrounds — they speak your language.
+          </p>
+          <p>
+            Every engagement begins with a role analysis workshop, identifying 
+            technical skills, compliance demands, and growth objectives. 
+            We then curate a shortlist within 7–10 business days, supported 
+            by complete documentation and candidate validation reports.
+          </p>
+          <p>
+            Our clients report faster onboarding, reduced compliance gaps, and 
+            higher employee retention through our integrated staffing model.  
+            From contract placements to permanent executive searches, 
+            MeDevice ensures talent precision.
+          </p>
+        </div>
+      </section>
+
+      {/* ===== CTA ===== */}
+      <section className="py-28 text-center bg-gradient-to-r from-blue-700 to-blue-900 text-white">
+        <h2 className="text-4xl font-bold mb-4">Let’s Build Your Dream Team</h2>
+        <p className="max-w-3xl mx-auto text-blue-100 text-lg mb-10 font-light">
+          Partner with MeDevice to access a curated network of engineers, scientists, 
+          and compliance professionals shaping the next generation of medical technology.
         </p>
         <Link
           href="/contact"
-          className="bg-white text-red-700 font-semibold px-10 py-4 rounded-full shadow-xl hover:scale-110 hover:bg-gray-100 transition-all"
+          className="bg-white text-blue-700 font-semibold px-10 py-4 rounded-full shadow-xl hover:bg-blue-100 hover:scale-105 transition-all"
         >
           Start Hiring
         </Link>
       </section>
 
-      <footer className="py-10 text-center text-gray-500 text-sm bg-black border-t border-gray-800">
-        © {new Date().getFullYear()} MeDevice Inc. | Global MedTech Staffing
+      <footer className="py-10 text-center text-slate-500 text-sm bg-white border-t border-slate-200">
+        © {new Date().getFullYear()} MeDevice Inc. | Empowering MedTech Through AI
       </footer>
     </main>
   );
