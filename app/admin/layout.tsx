@@ -1,6 +1,6 @@
 "use client";
-import AdminGuard from "@/components/AdminGuard";
+import { ReactNode } from "react";
 
-export default function AdminLayout({ children }: { children: React.ReactNode }) {
-  return <AdminGuard>{children}</AdminGuard>;
+export default function AdminLayout({ children }: { children: ReactNode }) {
+  return <>{children}</>;
 }

@@ -1,22 +1,12 @@
 import { NextResponse } from "next/server";
-import { supabase } from "@/lib/supabaseClient";
+
+export const runtime = "nodejs";
+
 export async function GET() {
-  const { data, error } = await supabase.from("trainings").select("*");
-  if (error) return NextResponse.json({ success: false, error: error.message });
-  return NextResponse.json({ success: true, data });
+  return NextResponse.json({ message: "API working fine" });
 }
-export async function POST(req: Request) {
-  const body = await req.json();
-  const { data, error } = await supabase.from("trainings").insert([body]);
-  if (error) return NextResponse.json({ success: false, error: error.message });
-  return NextResponse.json({ success: true, data });
-}
-export async function DELETE(req: Request) {
-  const { searchParams } = new URL(req.url);
-  const id = searchParams.get("id");
-  if (!id)
-    return NextResponse.json({ success: false, error: "Missing id" }, { status: 400 });
-  const { error } = await supabase.from("trainings").delete().eq("id", id);
-  if (error) return NextResponse.json({ success: false, error: error.message });
-  return NextResponse.json({ success: true });
+
+export async function POST(request: Request) {
+  const body = await request.json();
+  return NextResponse.json({ received: body });
 }

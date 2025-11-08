@@ -1,17 +1,12 @@
-export async function apiSafeFetch<T = any>(url: string, options?: RequestInit): Promise<T> {
-  const baseUrl = typeof window === "undefined" ? process.env.NEXT_PUBLIC_BASE_URL || "" : "";
-  const fullUrl = url.startsWith("http") ? url : `${baseUrl}${url}`;
+import { NextResponse } from "next/server";
 
-  const res = await fetch(fullUrl, {
-    ...options,
-    headers: { "Content-Type": "application/json" },
-  });
+export const runtime = "nodejs";
 
-  if (!res.ok) throw new Error(`API ${res.status}: ${await res.text()}`);
+export async function GET() {
+  return NextResponse.json({ message: "API working fine" });
+}
 
-  const type = res.headers.get("content-type") || "";
-  if (!type.includes("application/json"))
-    throw new Error(`Expected JSON but got: ${(await res.text()).slice(0, 100)}...`);
-
-  return res.json();
+export async function POST(request: Request) {
+  const body = await request.json();
+  return NextResponse.json({ received: body });
 }
