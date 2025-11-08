@@ -1,5 +1,4 @@
 {
-  "type": "module",
   "name": "medevice",
   "version": "0.1.0",
   "private": true,
@@ -7,42 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "export": "next export"
+    "lint": "next lint"
   },
   "dependencies": {
-    "@prisma/client": "^6.19.0",
-    "@react-three/drei": "^10.7.6",
-    "@react-three/fiber": "^9.4.0",
     "@supabase/ssr": "^0.7.0",
-    "eslint": "latest",
-    "eslint-config-next": "latest",
-    "framer-motion": "12.23.0",
-    "lucide-react": "latest",
-    "mysql2": "3.9.8",
-    "next": "latest",
-    "openai": "^6.7.0",
-    "prisma": "^6.19.0",
-    "react": "latest",
-    "react-dom": "latest",
-    "react-dropzone": "^14.3.8",
-    "react-icons": "latest",
-    "react-slick": "^0.31.0",
-    "react-speech-kit": "latest",
-    "react-speech-recognition": "latest",
-    "recharts": "^3.3.0",
-    "resend": "^6.4.0",
-    "slick-carousel": "^1.8.1",
-    "three": "latest"
+    "critters": "^0.0.25",
+    "framer-motion": "10.16.4",
+    "lucide-react": "^0.553.0",
+    "mysql2": "^3.15.3",
+    "next": "15.0.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
   },
   "devDependencies": {
-    "@types/node": "24.9.1",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "@types/react-slick": "^0.23.13",
-    "autoprefixer": "latest",
-    "postcss": "latest",
+    "@types/node": "20.14.12",
+    "@types/react": "18.3.11",
+    "autoprefixer": "10.4.21",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.1",
+    "postcss": "8.5.6",
     "tailwindcss": "3.4.13",
-    "typescript": "latest"
+    "typescript": "5.6.3"
   }
 }

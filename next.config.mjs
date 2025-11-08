@@ -1,14 +1,20 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
-  poweredByHeader: false,
-  compress: true,
-  images: { unoptimized: true },
+  output: 'export',
+  images: {
+    unoptimized: true,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  reactStrictMode: true,
+  trailingSlash: true,
   experimental: {
     optimizeCss: true,
-    optimizePackageImports: ["framer-motion", "react-icons"],
   },
-  trailingSlash: true,
 };
 
 export default nextConfig;

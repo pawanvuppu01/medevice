@@ -16,6 +16,10 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleDropdownToggle = (name: string) => {
+    setDropdown(dropdown === name ? null : name);
+  };
+
   const menuLinks = [
     { name: "Home", href: "/" },
     { name: "About Us", href: "/about" },
@@ -62,7 +66,6 @@ export default function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 md:px-12">
-        {/* LOGO */}
         <Link
           href="/"
           className="text-2xl font-extrabold text-blue-800 tracking-tight hover:scale-105 transition-transform"
@@ -70,22 +73,15 @@ export default function Navbar() {
           MeDevice<span className="text-blue-600">AI</span>
         </Link>
 
-        {/* DESKTOP MENU */}
         <nav className="hidden md:flex items-center gap-8 relative">
           {menuLinks.map((link, i) =>
             link.sublinks ? (
-              <div
-                key={i}
-                className="relative group"
-                onMouseEnter={() => setDropdown(link.name)}
-                onMouseLeave={() => setDropdown(null)}
-              >
-                <button className="flex items-center gap-1 font-medium text-slate-700 hover:text-blue-700 transition relative pb-1">
+              <div key={i} className="relative">
+                <button
+                  onClick={() => handleDropdownToggle(link.name)}
+                  className="flex items-center gap-1 font-medium text-slate-700 hover:text-blue-700 transition relative pb-1"
+                >
                   {link.name}
-                  <motion.span
-                    layoutId="underline"
-                    className="absolute left-0 bottom-0 h-[2px] w-0 bg-blue-700 transition-all duration-300 group-hover:w-full"
-                  />
                   <motion.div
                     animate={{ rotate: dropdown === link.name ? 180 : 0 }}
                     transition={{ duration: 0.3 }}
@@ -94,7 +90,6 @@ export default function Navbar() {
                   </motion.div>
                 </button>
 
-                {/* DROPDOWN */}
                 <AnimatePresence>
                   {dropdown === link.name && (
                     <motion.div
@@ -136,7 +131,6 @@ export default function Navbar() {
           </Link>
         </nav>
 
-        {/* MOBILE MENU TOGGLE */}
         <button
           className="md:hidden text-blue-800"
           onClick={() => setMenuOpen(!menuOpen)}
@@ -145,7 +139,6 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* MOBILE MENU */}
       <AnimatePresence>
         {menuOpen && (
           <motion.nav
