@@ -1,37 +1,39 @@
-version: "3.9"
-
 services:
-  mysql:
+  db:
     image: mysql:8.0
-    container_name: medevice_mysql
     restart: always
+    container_name: medevice_db
     environment:
-      MYSQL_ROOT_PASSWORD: Thulasi@2001
       MYSQL_DATABASE: medevice_db
       MYSQL_USER: medevice_user
       MYSQL_PASSWORD: medevice_pass
+      MYSQL_ROOT_PASSWORD: rootpass
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
-  phpmyadmin:
-    image: arm64v8/phpmyadmin
-    container_name: medevice_phpmyadmin
+  app:
+    build: .
+    container_name: medevice_app
     restart: always
+    depends_on:
+      db:
+        condition: service_healthy
     environment:
-      PMA_HOST: mysql
-      MYSQL_ROOT_PASSWORD: Thulasi@2001
+      DATABASE_URL: "mysql://medevice_user:medevice_pass@db:3306/medevice_db"
+      NODE_ENV: production
+      NEXT_PUBLIC_APP_NAME: MeDevice
+      NEXT_PUBLIC_APP_URL: http://localhost:3000
     ports:
-      - "8080:80"
+      - "3000:3000"
+    command: >
+      sh -c "pnpm prisma db push --schema=lib/generated/prisma/schema.prisma && pnpm start"
 
-  metabase:
-    image: metabase/metabase:latest
-    container_name: medevice_metabase
-    restart: always
-    ports:
-      - "3001:3000"
-    environment:
-      MB_DB_FILE: /metabase.db/metabase.db
-    volumes:
-      - ./metabase_data:/metabase.db
+volumes:
+  mysql_data:
