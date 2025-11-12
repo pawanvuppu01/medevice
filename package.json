@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && ./postbuild.sh",
     "start": "next start",
     "lint": "next lint",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "prisma:generate": "npx prisma generate",
+    "prisma:push": "npx prisma db push",
+    "postbuild": "./postbuild.sh"
   },
   "dependencies": {
     "@prisma/client": "6.19.0",
