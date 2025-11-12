@@ -1,6 +1,8 @@
+// prisma/schema.prisma
+// Final production-ready version for MeDevice
+
 generator client {
   provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
 }
 
 datasource db {
@@ -17,25 +19,25 @@ model Clients {
 }
 
 model Profiles {
-  id          Int      @id @default(autoincrement())
-  fullName    String
-  email       String   @unique
-  role        String   @default("user")
-  phone       String?
-  company     String?
-  createdAt   DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  fullName  String
+  email     String   @unique
+  role      String   @default("user")
+  phone     String?
+  company   String?
+  createdAt DateTime @default(now())
 }
 
 model Projects {
-  id          Int      @id @default(autoincrement())
+  id          Int       @id @default(autoincrement())
   title       String
   description String?
   category    String?
   clientName  String?
   startDate   DateTime?
   endDate     DateTime?
-  status      String   @default("Active")
-  createdAt   DateTime @default(now())
+  status      String    @default("Active")
+  createdAt   DateTime  @default(now())
 }
 
 model Messages {
@@ -60,27 +62,27 @@ model Trainings {
 }
 
 model Files {
-  id          Int      @id @default(autoincrement())
-  fileName    String
-  fileType    String?
-  fileUrl     String
-  uploadedBy  String?
-  createdAt   DateTime @default(now())
+  id         Int      @id @default(autoincrement())
+  fileName   String
+  fileType   String?
+  fileUrl    String
+  uploadedBy String?
+  createdAt  DateTime @default(now())
 }
 
 model Logs {
-  id          Int      @id @default(autoincrement())
-  action      String
-  user        String?
-  details     String?
-  timestamp   DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  action    String
+  user      String?
+  details   String?
+  timestamp DateTime @default(now())
 }
 
 model Notifications {
-  id          Int      @id @default(autoincrement())
-  title       String
-  message     String
-  type        String   @default("info")
-  isRead      Boolean  @default(false)
-  createdAt   DateTime @default(now())
+  id        Int      @id @default(autoincrement())
+  title     String
+  message   String
+  type      String   @default("info")
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
 }

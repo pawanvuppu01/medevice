@@ -1,24 +1,41 @@
-import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma'; // Adjust the path if your prisma client is elsewhere
+import { NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
 
-export async function POST(request: Request) {
+const prisma = new PrismaClient();
+
+export async function POST(req: Request) {
   try {
-    const data = await request.json();
+    const data = await req.json();
 
-    // Insert the message into the Messages table using Prisma
+    // ✅ Use field names exactly as in Prisma schema
     const message = await prisma.messages.create({
       data: {
-        name: data.full_name,
+        fullName: data.full_name || data.fullName,
         email: data.email,
-        subject: data.service, // Map your form's "service" field to the subject
+        phone: data.phone || null,
+        service: data.service || "General",
         message: data.message,
       },
     });
 
-    // Return a successful response
-    return NextResponse.json({ success: true, message });
-  } catch (error) {
-    console.error('Failed to save message:', error);
-    return NextResponse.json({ success: false, error: 'Failed to save message' }, { status: 500 });
+    return NextResponse.json(
+      { success: true, message: "Message saved successfully!", data: message },
+      { status: 200 }
+    );
+  } catch (error: any) {
+    console.error("Contact API error:", error);
+    return NextResponse.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
   }
+}
+
+// Optional GET handler for listing messages
+export async function GET() {
+  const messages = await prisma.messages.findMany({
+    orderBy: { id: "desc" },
+    take: 10,
+  });
+  return NextResponse.json(messages);
 }

@@ -14,18 +14,35 @@ export default function ContactPage() {
   });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    await fetch("/api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-    setSubmitted(true);
+    console.log("🔵 Submitting form data:", formData); // frontend debug log
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      console.log("🟢 Response status:", res.status);
+      const json = await res.json().catch(() => null);
+      console.log("🧩 Response body:", json);
+
+      if (res.ok) {
+        setSubmitted(true);
+      } else {
+        console.error("🔴 Form submission failed!");
+      }
+    } catch (err) {
+      console.error("🔥 Network or fetch error:", err);
+    }
   };
 
   if (submitted)
@@ -40,7 +57,7 @@ export default function ContactPage() {
             Message Sent Successfully!
           </h1>
           <p className="text-slate-600">
-            Thank you, {formData.full_name.split(" ")[0]} — our team will reach out to you shortly to discuss your request.
+            Thank you, {formData.full_name.split(" ")[0]} — our team will reach out to you shortly.
           </p>
         </motion.div>
       </main>
@@ -48,7 +65,6 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-white via-slate-50 to-blue-50 text-slate-800">
-      {/* Hero Section */}
       <section className="text-center py-20 bg-gradient-to-r from-blue-700 to-blue-900 text-white">
         <motion.h1
           initial={{ opacity: 0, y: 40 }}
@@ -59,12 +75,11 @@ export default function ContactPage() {
           Let’s Connect with MeDevice
         </motion.h1>
         <p className="max-w-3xl mx-auto text-blue-100 text-lg">
-          Reach out to discuss your project, staffing requirements, or partnership opportunities.  
-          Our experts typically respond within 24 hours.
+          Reach out to discuss your project, staffing, or partnership opportunities.  
+          We typically respond within 24 hours.
         </p>
       </section>
 
-      {/* Main Form + Contact Info */}
       <section className="max-w-6xl mx-auto py-24 px-6 grid md:grid-cols-2 gap-12 items-start">
         {/* Contact Form */}
         <motion.form
@@ -74,9 +89,7 @@ export default function ContactPage() {
           viewport={{ once: true }}
           className="bg-white shadow-xl rounded-3xl p-10 border border-slate-200 space-y-6"
         >
-          <h2 className="text-2xl font-bold text-blue-800 mb-4">
-            Send us a Message
-          </h2>
+          <h2 className="text-2xl font-bold text-blue-800 mb-4">Send us a Message</h2>
 
           <div className="grid md:grid-cols-2 gap-6">
             <div>
@@ -162,12 +175,10 @@ export default function ContactPage() {
           transition={{ duration: 0.6 }}
           className="space-y-10"
         >
-          <h2 className="text-2xl font-bold text-blue-800">
-            Contact Information
-          </h2>
+          <h2 className="text-2xl font-bold text-blue-800">Contact Information</h2>
           <p className="text-slate-600 text-lg">
             Have a question or need immediate support?  
-            We’re here to help — reach out using the details below.
+            Reach out using the details below.
           </p>
 
           <div className="space-y-4 text-slate-700">
@@ -183,15 +194,9 @@ export default function ContactPage() {
           </div>
 
           <div className="pt-4">
-            <h3 className="font-semibold text-slate-700 mb-2">
-              Office Hours
-            </h3>
-            <p className="text-slate-600">
-              Monday – Friday: 9:00 AM – 6:00 PM (PST)
-            </p>
-            <p className="text-slate-600">
-              Saturday – Sunday: Closed
-            </p>
+            <h3 className="font-semibold text-slate-700 mb-2">Office Hours</h3>
+            <p className="text-slate-600">Monday – Friday: 9:00 AM – 6:00 PM (PST)</p>
+            <p className="text-slate-600">Saturday – Sunday: Closed</p>
           </div>
         </motion.div>
       </section>

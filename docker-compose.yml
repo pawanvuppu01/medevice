@@ -1,8 +1,10 @@
+version: "3.9"
+
 services:
   db:
     image: mysql:8.0
-    restart: always
     container_name: medevice_db
+    restart: always
     environment:
       MYSQL_DATABASE: medevice_db
       MYSQL_USER: medevice_user
@@ -33,7 +35,7 @@ services:
     ports:
       - "3000:3000"
     command: >
-      sh -c "pnpm prisma db push --schema=lib/generated/prisma/schema.prisma && pnpm start"
+      sh -c "pnpm prisma generate && pnpm prisma db push && pnpm start"
 
 volumes:
   mysql_data:

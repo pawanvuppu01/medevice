@@ -1,36 +1,44 @@
-# ---------- Build stage ----------
+# ---------- Builder Stage ----------
 FROM node:20-alpine AS builder
 WORKDIR /app
+
+# Copy dependency files
+COPY package.json pnpm-lock.yaml ./
 
 # Install pnpm globally
 RUN npm install -g pnpm
 
-# Copy all project files (so prisma schema exists too)
-COPY . .
+# Copy Prisma schema first
+COPY prisma ./prisma
 
-# Non-interactive install (fixes CI/TTY issue)
-ENV CI=true
+# Approve Prisma build scripts
+RUN pnpm approve-builds prisma @prisma/client
+
+# Install dependencies
 RUN pnpm install --frozen-lockfile
 
-# Generate Prisma client using your correct schema path
-RUN pnpm prisma generate --schema=lib/generated/prisma/schema.prisma
+# Copy everything else
+COPY . .
+
+# Generate Prisma client
+RUN npx prisma generate --schema=prisma/schema.prisma
 
 # Build Next.js app
 RUN pnpm build
 
-# ---------- Runtime stage ----------
+
+# ---------- Runtime Stage ----------
 FROM node:20-alpine AS runner
 WORKDIR /app
+ENV NODE_ENV=production
 
-# Install pnpm for runtime
-RUN npm install -g pnpm
-
-# Copy everything from builder
+# Copy built app from builder
 COPY --from=builder /app ./
 
-# Set environment and expose port
-ENV NODE_ENV=production
-EXPOSE 3000
+# Install pnpm globally again for runtime (so it won’t fail)
+RUN npm install -g pnpm
 
-# Start the app
+# ✅ Start app using pnpm or npm
 CMD ["pnpm", "start"]
+
+EXPOSE 3000
