@@ -40,9 +40,10 @@ model Projects {
 
 model Messages {
   id        Int      @id @default(autoincrement())
-  name      String
+  fullName  String
   email     String
-  subject   String?
+  phone     String?
+  service   String
   message   String
   createdAt DateTime @default(now())
 }
