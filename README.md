@@ -1,5 +1,7 @@
 # Medevice — Enterprise Medical Device & Regulatory Platform
 
+![CI Status](https://github.com/pawanvuppu01/medevice/actions/workflows/ci.yml/badge.svg)
+
 ## Overview
 
 Medevice is a large-scale, enterprise-grade platform for medical device consulting, training, and project management. It includes a public-facing marketing site, client portals, administrative dashboards, real-time insights, and an AI assistant.

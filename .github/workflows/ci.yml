@@ -39,13 +39,18 @@ jobs:
         run: pnpm prisma:generate
 
       - name: Lint
-        run: pnpm lint || true
+        run: pnpm lint
 
       - name: Build
         run: pnpm build
 
-      - name: Run tests
-        run: pnpm test --run
+      - name: Run tests with coverage
+        run: pnpm test -- --coverage
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage/
 
   docker-build:
     needs: lint-test-build
