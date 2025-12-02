@@ -1,61 +1,216 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Medevice — Enterprise Medical Device & Regulatory Platform
 
-## Getting Started
+## Overview
 
-First, run the development server:
+Medevice is a large-scale, enterprise-grade platform for medical device consulting, training, and project management. It includes a public-facing marketing site, client portals, administrative dashboards, real-time insights, and an AI assistant.
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+# 1. Clone and install
+git clone <repo-url> && cd medevice
+pnpm install
+
+# 2. Start database
+docker-compose up -d db
+sleep 10
+
+# 3. Configure environment
+export DATABASE_URL="mysql://medevice_user:medevice_pass@localhost:3306/medevice_db"
+npx prisma generate
+npx prisma db push
+pnpm prisma:seed
+
+# 4. Start dev server
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` to see the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Test Login** (after seed): 
+- Email: `admin@medevice.local` | Password: `AdminPass123!` (Admin)
+- Email: `client@acme.com` | Password: `ClientPass123!` (Client)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Features
 
-## Learn More
+### Platform Modules
+- **Marketing Site**: Home, About, Services, Projects, Case Studies, Careers, Contact
+- **Client Portal**: Projects, Messages, Files, Training Requests
+- **Admin Dashboard**: User Management, Analytics, Real-time Insights
+- **Training**: Courses, Sessions, Materials
+- **AI Assistant**: Chat widget with voice input support
 
-To learn more about Next.js, take a look at the following resources:
+### Technical Features
+- JWT-based authentication with role-based access control (Admin, Staff, Client)
+- Secure API routes with rate limiting and input validation
+- Real-time SSE stream for events (messages, logs, metrics)
+- Prisma ORM with MySQL database
+- Type-safe with TypeScript and Tailwind CSS
+- Docker Compose for local development
+- GitHub Actions CI/CD (lint, test, build, Docker image)
+- Unit tests with Vitest
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Architecture
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Tech Stack
+- **Frontend**: Next.js 15 (App Router), React 18, Framer Motion, Tailwind CSS
+- **Backend**: Next.js API Routes, Node.js
+- **Database**: MySQL 8.0 + Prisma ORM
+- **Auth**: JWT with bcryptjs
+- **Real-time**: Server-Sent Events (SSE)
+- **Testing**: Vitest
+- **CI/CD**: GitHub Actions
+- **Containerization**: Docker & Docker Compose
 
-## Deploy on Vercel
+### Key Directories
+```
+medevice/
+├── app/api/              # API routes (auth, realtime, CRUD)
+├── app/admin/            # Admin-protected pages
+├── app/auth/             # Login/logout pages
+├── components/           # Reusable React components
+├── lib/                  # Helpers (auth, realtime, rate-limiter)
+├── prisma/               # Database schema and migrations
+├── tests/                # Unit tests
+├── docs/                 # Architecture and requirements docs
+└── .github/workflows/    # CI/CD pipelines
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## API Endpoints
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-We started building the MeDevice platform by creating a brand-new Next.js 15 project using pnpm because it offers faster installation and better workspace support than npm or yarn. Once the base project was created, we cleaned all the default boilerplate files and immediately set up TailwindCSS, TypeScript, and the App Router structure so that the codebase would be modern, scalable, and easier to maintain.
+### Auth
+- `POST /api/auth/login` — Login with email/password
+- `POST /api/auth/logout` — Clear session
 
-From the beginning, the goal was to build a large multi-module platform that supports consulting, staffing, integrated solutions, training, industries, resources, careers, blog articles, clients, case studies, and also an AI assistant. Because of this, we decided to follow a modular structure. Every major section of the business got its own dedicated folder inside the /app directory, such as /consulting, /staffing, /integrated-solutions, /industries, /blog, /careers, /projects, /resources, and many more. This way, each module could evolve independently without breaking others.
+### Real-time
+- `GET /api/realtime/stream` — SSE stream of events
+- `POST /api/realtime/publish` — Publish event (authenticated)
 
-After setting up the routing structure, we created the main global layout with a consistent Navbar at the top and a Footer at the bottom. We then added our global styles using TailwindCSS and created reusable components like Hero sections, Testimonials, Buttons, Cards, and various UI pieces inside the /components directory. The idea here was to avoid repeating UI code. We built everything using React server components and client components depending on the need—server components for rendering fast data, client components for animation and interactivity.
+### Data (CRUD)
+- `GET|POST /api/clients`
+- `GET|POST /api/projects`
+- `GET|POST /api/messages`
+- `GET|POST /api/trainings`
 
-Once the frontend skeleton looked stable, we moved on to backend logic. We installed Prisma ORM and connected it to a MySQL database running inside Docker. We also configured Docker Compose to run three services: a MySQL database, a Metabase analytics dashboard, and optionally the application in a container. Prisma was used to design the schema that represents users, clients, projects, case studies, blog posts, contact forms, and any future business objects. Every change in the database structure was handled through Prisma migrations, making the system stable and version-controlled.
+All data endpoints support filtering, pagination, and role-based access control.
 
-Next, we built the authentication system. Instead of relying on external libraries, we implemented custom JWT-based authentication. The login route validates the user against the database, creates a secure token, and sets it in cookies. Middleware was added to protect admin-only pages so only authenticated users with the right permissions could access the Admin Dashboard. This gave us full control over the security logic of the platform.
+## Development
 
-After auth, we implemented the Admin Dashboard, which became the control center of the website. We built an admin sidebar with navigation menus for managing clients, projects, blog posts, and other internal data. All admin pages communicate with backend API endpoints under /app/api/... which interact with Prisma to fetch or update the database. By separating admin logic into isolated routes, the dashboard feels like a mini-application inside the main platform.
+### Install Dependencies
+```bash
+pnpm install
+```
 
-Parallel to backend development, we also focused heavily on the AI Assistant. We created a floating chat widget that appears on every page and opens an AI-powered assistant window. For voice-to-text functionality, we integrated react-speech-kit and built a UI that listens to voice input and prepares text prompts. The assistant component was designed in a flexible way so it can be connected to OpenAI or any other LLM later without needing to rewrite the UI. This makes the AI system easily upgradable in the future.
+### Set Environment Variables
+```bash
+cp .env.example .env.local
+# Edit .env.local with JWT_SECRET and DATABASE_URL
+```
 
-We also added animations using Framer Motion to give the platform a modern, smooth experience. Animations were applied to the hero section, cards, text fade-ups, and scrolling behavior. For icons, we used Lucide React to keep everything consistent, scalable, and lightweight.
+### Run Database
+```bash
+docker-compose up -d db
+export DATABASE_URL="mysql://medevice_user:medevice_pass@localhost:3306/medevice_db"
+```
 
-Once the core modules were complete, we built additional informational pages like About, Contact, Industries, Case Studies, Careers, and Training. Each of these pages was structured with reusable UI components and meaningful content placeholders so that the business owner can update text later. We also added form handling for the Contact page, storing submissions via backend API routes.
+### Initialize Database
+```bash
+npx prisma generate
+npx prisma db push
+pnpm prisma:seed
+```
 
-To support analytics and data visualization, we used Metabase, which runs in Docker and connects directly to the MySQL database. This allows us to build dashboards for tracking clients, traffic, user behavior, staffing statistics, or any business metrics. Metabase makes it easy to visualize SQL queries without coding the charts manually.
+### Start Dev Server
+```bash
+pnpm dev
+```
 
-The entire project is powered by pnpm for dependency management, making installation faster. ESLint and TypeScript ensure code quality and type safety. PostCSS helps generate optimized Tailwind styles, and Next.js optimizes images, routes, caching, and server rendering by default.
+### Run Tests
+```bash
+pnpm test
+```
 
-Finally, we prepared the platform for deployment. For cloud hosting, the project supports deployment on Vercel, AWS, Azure, Google Cloud, or any Docker-based system. For shared hosting like GoDaddy or cPanel, we enabled a static export option using next export so the website can be uploaded as plain HTML if needed.
+### Lint & Format
+```bash
+pnpm lint
+```
 
-In summary, the MeDevice platform was built by combining modern frontend technologies like Next.js, TypeScript, React, TailwindCSS, Framer Motion, and reusable components with a solid backend powered by Prisma, MySQL, API routes, JWT authentication, Docker infrastructure, and Metabase analytics. The architecture is modular, scalable, maintainable, and designed for enterprise-level growth, with built-in AI capabilities, admin management tools, analytics dashboards, and an elegant frontend—all integrated into a single unified system.
+### Build for Production
+```bash
+pnpm build
+pnpm start
+```
+
+## Deployment
+
+### Docker Build
+```bash
+docker build -t medevice:latest .
+docker run -e DATABASE_URL="mysql://..." -e JWT_SECRET="..." -p 3000:3000 medevice:latest
+```
+
+### Environment Variables (Production)
+- `DATABASE_URL` — MySQL connection string (use managed DB like AWS RDS)
+- `JWT_SECRET` — Strong random secret (minimum 32 chars)
+- `NODE_ENV=production`
+- `NEXT_PUBLIC_APP_URL` — Your production URL
+
+### Security Checklist
+- [ ] Use HTTPS only
+- [ ] Rotate JWT_SECRET regularly
+- [ ] Use managed database (RDS, Cloud SQL)
+- [ ] Enable CORS and rate limiting
+- [ ] Monitor logs and errors
+- [ ] Set up database backups
+- [ ] Keep dependencies updated
+
+## CI/CD Pipeline
+
+GitHub Actions workflow (`.github/workflows/ci.yml`) runs on every push/PR:
+1. Install dependencies
+2. Generate Prisma client
+3. Lint code
+4. Build project
+5. Run tests
+
+All PRs must pass checks before merge.
+
+## Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "Cannot find DATABASE_URL" | Create `.env.local` with `DATABASE_URL` |
+| "Port 3000 in use" | `lsof -i :3000 \| awk 'NR!=1 {print $2}' \| xargs kill -9` |
+| "DB connection refused" | Check `docker ps`, ensure MySQL is running |
+| "Prisma Client not found" | Run `npx prisma generate` |
+
+## Performance
+
+- SSR for marketing pages (SEO & speed)
+- CSR for admin dashboard (responsiveness)
+- Optimized Tailwind CSS bundle
+- Built-in Prisma query caching
+- Rate limiting on all public endpoints
+
+## Monitoring
+
+- Real-time event stream on admin insights page
+- Structured logs in API routes
+- Basic metrics (clients, projects, messages counts)
+- Consider Sentry, DataDog for production monitoring
+
+## Documentation
+
+- `docs/requirements.md` — Feature requirements and acceptance criteria
+- `docs/architecture.md` — Tech decisions and design patterns
+
+## Support
+
+For issues or questions:
+1. Check `docs/` folder
+2. Review GitHub Issues
+3. Contact development team
+
+## License
+
+Copyright © 2025 Medevice. All rights reserved.

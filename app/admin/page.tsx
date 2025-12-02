@@ -1,8 +1,28 @@
 "use client";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
 export default function AdminDashboard() {
+  const [stats, setStats] = useState({ clients: 0, projects: 0, messages: 0, users: 0 });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchStats() {
+      try {
+        const res = await fetch('/api/admin/stats');
+        if (res.ok) {
+          const data = await res.json();
+          setStats(data);
+        }
+      } catch (err) {
+        console.error('Error fetching stats:', err);
+      }
+      setLoading(false);
+    }
+    fetchStats();
+  }, []);
+
   const sections = [
     {
       title: "Clients",
@@ -37,6 +57,27 @@ export default function AdminDashboard() {
         Admin Control Center
       </motion.h1>
 
+      {!loading && (
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-4 mb-10 max-w-6xl mx-auto">
+          <div className="bg-white/5 border border-blue-500/30 p-6 rounded-lg">
+            <p className="text-gray-400 text-sm">Total Clients</p>
+            <p className="text-3xl font-bold text-blue-400">{stats.clients}</p>
+          </div>
+          <div className="bg-white/5 border border-green-500/30 p-6 rounded-lg">
+            <p className="text-gray-400 text-sm">Active Projects</p>
+            <p className="text-3xl font-bold text-green-400">{stats.projects}</p>
+          </div>
+          <div className="bg-white/5 border border-yellow-500/30 p-6 rounded-lg">
+            <p className="text-gray-400 text-sm">Messages</p>
+            <p className="text-3xl font-bold text-yellow-400">{stats.messages}</p>
+          </div>
+          <div className="bg-white/5 border border-purple-500/30 p-6 rounded-lg">
+            <p className="text-gray-400 text-sm">Users</p>
+            <p className="text-3xl font-bold text-purple-400">{stats.users}</p>
+          </div>
+        </div>
+      )}
+
       <section className="grid sm:grid-cols-2 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
         {sections.map((s, i) => (
           <motion.div
@@ -63,7 +104,7 @@ export default function AdminDashboard() {
       </section>
 
       <footer className="text-center text-gray-500 mt-16 text-sm">
-        © {new Date().getFullYear()} MeDevice Admin Portal | Powered by Supabase & Next.js
+        © {new Date().getFullYear()} MeDevice Admin Portal | Powered by Next.js & Prisma
       </footer>
     </main>
   );

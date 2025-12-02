@@ -129,6 +129,18 @@ export default function Navbar() {
           >
             Get in Touch
           </Link>
+          <Link
+            href="/auth/login"
+            className="ml-4 text-sm font-medium text-slate-700 hover:text-blue-700"
+          >
+            Sign in
+          </Link>
+          <Link
+            href="/admin/insights"
+            className="ml-4 text-sm font-medium text-slate-700 hover:text-blue-700"
+          >
+            Admin
+          </Link>
         </nav>
 
         <button
