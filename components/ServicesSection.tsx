@@ -1,8 +1,8 @@
 import React from 'react';
 import { getContent, getAssetUrl } from '../lib/content';
 
-export default async function ServicesSection() {
-  const services = await getContent('services');
+export default function ServicesSection() {
+  const services = getContent('services');
   return (
     <section className="services grid grid-cols-1 md:grid-cols-2 gap-6">
       {services?.map((svc: any) => (

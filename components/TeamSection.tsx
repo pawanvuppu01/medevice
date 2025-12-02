@@ -1,8 +1,8 @@
 import React from 'react';
 import { getContent, getAssetUrl } from '../lib/content';
 
-export default async function TeamSection() {
-  const team = await getContent('team');
+export default function TeamSection() {
+  const team = getContent('team');
   return (
     <section className="team grid grid-cols-1 md:grid-cols-2 gap-6">
       {team?.map((member: any) => (

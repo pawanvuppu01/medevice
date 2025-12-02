@@ -1,8 +1,8 @@
 import React from 'react';
 import { getContent, getAssetUrl } from '../lib/content';
 
-export default async function HeroSection() {
-  const hero = await getContent('hero');
+export default function HeroSection() {
+  const hero = getContent('hero');
   const banner = getAssetUrl('banners', hero?.banner?.split('/').pop(), 'banner');
   return (
     <section className="hero">

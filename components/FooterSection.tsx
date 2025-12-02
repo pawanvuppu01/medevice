@@ -1,8 +1,8 @@
 import React from 'react';
 import { getContent, getAssetUrl } from '../lib/content';
 
-export default async function FooterSection() {
-  const footer = await getContent('footer');
+export default function FooterSection() {
+  const footer = getContent('footer');
   return (
     <footer className="footer p-6 border-t mt-10">
       <div className="links flex gap-4">
