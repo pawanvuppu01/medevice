@@ -1,0 +1,9 @@
+{
+  "title": "Welcome to MeDevice!",
+  "subtitle": "Enterprise Medical Device & Regulatory Platform",
+  "buttons": [
+    { "label": "Get Started", "link": "/about" },
+    { "label": "Contact Us", "link": "/contact" }
+  ],
+  "banner": "/assets/banners/hero.jpg"
+}

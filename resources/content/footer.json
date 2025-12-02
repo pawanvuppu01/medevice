@@ -1,0 +1,10 @@
+{
+  "links": [
+    { "label": "Privacy Policy", "url": "/privacy" },
+    { "label": "Terms of Service", "url": "/terms" }
+  ],
+  "social": [
+    { "icon": "/assets/icons/twitter.svg", "url": "https://twitter.com/medevice" },
+    { "icon": "/assets/icons/linkedin.svg", "url": "https://linkedin.com/company/medevice" }
+  ]
+}

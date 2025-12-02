@@ -1,0 +1,8 @@
+{
+  "logo": "/assets/icons/logo.png",
+  "theme": {
+    "primary": "#1e293b",
+    "secondary": "#f43f5e"
+  },
+  "favicon": "/assets/icons/favicon.ico"
+}

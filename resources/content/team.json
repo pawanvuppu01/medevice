@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Dr. Jane Smith",
+    "photo": "/assets/team/jane.png",
+    "bio": "Founder & CEO. 20+ years in MedTech."
+  },
+  {
+    "name": "John Doe",
+    "photo": "/assets/team/john.png",
+    "bio": "Regulatory Affairs Lead."
+  }
+]

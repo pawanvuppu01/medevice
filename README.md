@@ -216,3 +216,58 @@ For issues or questions:
 ## License
 
 Copyright © 2025 Medevice. All rights reserved.
+
+## How to Manage Website Content Without Touching Code
+
+### Asset Management
+- Place all images, icons, banners, team photos, and uploads in `/public/assets/` and its subfolders.
+- To add or replace an image, simply drag-and-drop the file into the correct folder (e.g., `/public/assets/banners/hero.jpg`).
+- All components reference assets by static path (e.g., `/assets/images/hero.jpg`).
+- If an asset is missing, a placeholder image is shown automatically.
+- No need to import images in code—just update the files.
+
+### Dynamic Content
+- All dynamic content is stored as JSON in `/resources/content/`.
+- Update `site.json`, `hero.json`, `services.json`, `team.json`, `gallery.json`, or `footer.json` to change site settings, hero section, services, team, gallery, or footer content.
+- The site auto-reloads content on dev server restart.
+
+### Upload & Replace Workflow
+- **Add new photo:** Place it in the correct `/public/assets/` subfolder.
+- **Replace photo:** Overwrite the file in the folder; the website updates everywhere.
+- **Delete asset:** Remove the file; a placeholder will show instead.
+- **Add new service icon:** Place SVG/PNG in `/public/assets/icons/` and reference it in `services.json`.
+- **Add team member:** Place photo in `/public/assets/team/` and add entry in `team.json`.
+- **Replace hero banner:** Overwrite `/public/assets/banners/hero.jpg` and update `hero.json` if needed.
+
+### Example
+- To update the hero banner, replace `/public/assets/banners/hero.jpg` and update `banner` in `hero.json`.
+- To add a new service, add an entry to `services.json` and place the icon in `/public/assets/icons/`.
+- To add a team member, add to `team.json` and upload their photo to `/public/assets/team/`.
+
+### No Code Changes Needed
+- All content and assets are managed via files and folders.
+- The system auto-falls back to placeholder images if any asset is missing.
+- You can manage your website like a CMS—no React or TypeScript edits required.
+
+---
+
+**Folder Structure Example:**
+```
+/public/assets/
+  images/
+  banners/
+  team/
+  icons/
+  products/
+  uploads/
+  placeholders/
+/resources/content/
+  site.json
+  hero.json
+  services.json
+  team.json
+  gallery.json
+  footer.json
+```
+
+**Enjoy instant, code-free content management!**

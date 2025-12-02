@@ -1,0 +1,12 @@
+[
+  {
+    "title": "Regulatory Strategy",
+    "icon": "/assets/icons/regulatory.svg",
+    "description": "Navigate global regulations with expert guidance."
+  },
+  {
+    "title": "Quality Systems",
+    "icon": "/assets/icons/quality.svg",
+    "description": "Implement robust quality management systems."
+  }
+]

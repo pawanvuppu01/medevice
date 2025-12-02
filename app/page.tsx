@@ -3,6 +3,11 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import HeroSection from "../components/HeroSection";
+import ServicesSection from "../components/ServicesSection";
+import TeamSection from "../components/TeamSection";
+import GallerySection from "../components/GallerySection";
+import FooterSection from "../components/FooterSection";
 
 export default function HomePage() {
   return (
