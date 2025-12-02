@@ -1,3 +1,8 @@
+if (!process.env.DATABASE_URL) {
+  console.error('❌ DATABASE_URL is not set. Please create a .env file or set the variable in your environment. See .env.example.');
+  process.exit(1);
+}
+
 const { PrismaClient } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const prisma = new PrismaClient();
