@@ -31,20 +31,16 @@ services:
       - .env
     environment:
       DATABASE_URL: "mysql://medevice_user:medevice_pass@db:3306/medevice_db"
+      CI: "true"
       NODE_ENV: production
       NEXT_PUBLIC_APP_NAME: "MeDevice"
       NEXT_PUBLIC_APP_URL: "http://localhost:3000"
     ports:
       - "3000:3000"
-    command: >
-      sh -c "
-        npm install -g pnpm &&
-        pnpm install --frozen-lockfile &&
-        npx prisma generate &&
-        npx prisma db push &&
-        pnpm build &&
-        pnpm start
-      "
+    # Use the runtime CMD from the Dockerfile (built image already installs dependencies
+    # and runs the build in the builder stage). This avoids running pnpm install/build
+    # inside the container at runtime (which can fail without a TTY).
+    command: ["pnpm", "start"]
 
 volumes:
   mysql_data:
