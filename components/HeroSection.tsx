@@ -3,7 +3,7 @@ import { getContent, getAssetUrl } from '../lib/content';
 
 export default function HeroSection() {
   const hero = getContent('hero');
-  const banner = getAssetUrl('banners', hero?.banner?.split('/').pop(), 'banner');
+  const banner = getAssetUrl('banners', hero?.banner?.split('/').pop() || '', 'banner');
   return (
     <section className="hero">
       <img src={banner} alt="Hero Banner" className="w-full h-64 object-cover" />
