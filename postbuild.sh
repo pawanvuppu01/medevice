@@ -20,7 +20,11 @@ npx prisma generate --schema=prisma/schema.prisma
 # --- Push schema only in non-production (safety guard) ---
 if [ "$NODE_ENV" != "production" ] && [ "$VERCEL" != "1" ]; then
   echo "🧱 Pushing Prisma schema to DB..."
-  npx prisma db push --schema=prisma/schema.prisma
+  if [ -z "$DATABASE_URL" ]; then
+    echo "⚠️  DATABASE_URL is empty — skipping prisma push. Set DATABASE_URL_LOCAL to enable this."
+  else
+    npx prisma db push --schema=prisma/schema.prisma
+  fi
 else
   echo "🚫 Skipping schema push (production mode)"
 fi

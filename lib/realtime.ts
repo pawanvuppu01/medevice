@@ -1,13 +1,13 @@
-type Subscriber = (data: any) => void;
+type Subscriber = (data: unknown) => void;
 
 const subscribers = new Set<Subscriber>();
 
-export function publishEvent(data: any) {
+export function publishEvent(data: unknown) {
   for (const sub of subscribers) {
     try {
       sub(data);
-    } catch (err) {
-      // ignore
+    } catch {
+      // ignore errors from subscribers
     }
   }
 }
